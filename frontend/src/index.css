@@ -1,0 +1,21 @@
+html {
+  position: relative;
+}
+
+html, body {
+  height: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  margin: 0;
+  font-family: 'Arial', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6, p, a, .button, .label, .checkbox, td, th {
+  font-family: 'Arial', sans-serif !important;
+}
+

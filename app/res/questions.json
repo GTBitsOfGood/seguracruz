@@ -1,0 +1,94 @@
+{
+  "1": {
+    "spanish": "Hola! ¿Cuál fue la fecha y hora del accidente?",
+    "english": "Hello! What was the date and time of the accident? Example -> 31-08 16:24",
+    "fields": ["datetime"],
+    "type": "date",
+    "none": ""
+  },
+  "2": {
+    "spanish": "¿Qué tipo de vehículos estaban involucrados en el accidente (indique todos los observados)?\na. Vehículo privado\nb. Taxi\nc. Micro bus\nd. Moto\ne. Camión\nf. Bicicleta\ng. Peatón\nh. Objeto o edificio",
+    "english": "What type of vehicles were involved in the accident (list all observed)?\na. Private vehicle\nb. Cab\nc. Micro bus\nd. Motorcycle\ne. Truck\nf. Bicycle\ng. Pedestrian\nh. Object or building",
+    "options": {
+      "a": "private vehicle",
+      "b": "cab",
+      "c": "micro bus",
+      "d": "motorcycle",
+      "e": "truck",
+      "f": "bicycle",
+      "g": "pedestrian",
+      "h": "object or building"
+    },
+    "fields": ["vehicles"],
+    "type": "multiple",
+    "none": ""
+  },
+  "3": {
+    "spanish": "¿Qué factores contribuyeron al accidente (indique todos los posibles)?\na. Falta de luz\nb. Falta de señalización\nc. Clima\nd. Alcohol o drogas\ne. Hablando por teléfono o enviando mensaje de texto\nf. Falta de cinturón de seguridad\nFatiga\nNinguno de esos",
+    "english": "What factors contributed to the accident (check all possible)?\na. Lack of light\nb. Lack of signage\nc. Weather\nd. Alcohol or drugs\ne. Talking on the phone or texting\nf. Lack of seat belt\ng. Fatigue\nh. None of those",
+    "options": {
+      "a": "lack of light",
+      "b": "lack of signage",
+      "c": "weather",
+      "d": "alcohol or drugs",
+      "e": "talking on the phone or texting",
+      "f": "lack of seat belt",
+      "g": "fatigue",
+      "h": "none of these"
+    },
+    "fields": ["factors"],
+    "type": "multiple",
+    "none": "h"
+  },
+  "4": {
+    "spanish": "¿Alguien resultó lesionado físicamente a causa del accidente?\na. Sí\nb. No\n",
+    "english": "Was anyone physically injured from the accident?\na. Yes\nb. No",
+    "options": {
+      "a": 1,
+      "b": 0
+    },
+    "fields": ["injury"],
+    "type": "single",
+    "skip": {
+      "question": 7,
+      "condition": 0
+    },
+    "none": ""
+  },
+  "5": {
+    "spanish": "¿Cómo estaba la persona más lesionada?\na. Consciente (o “se mueve”)\nb. Inconsciente (o “no se mueve”)\nc. Fallecido",
+    "english": "How was the most injured person?\na. Conscious (or \"moves\")\nb. Unconscious (or \"not moving\")\nc. Deceased\n",
+    "options": {
+      "a": "conscious",
+      "b": "unconscious",
+      "c": "deceased"
+    },
+    "fields": ["injury_description"],
+    "type": "single",
+    "none": ""
+  },
+  "6": {
+    "spanish": "¿Alguién proveyó primeros auxilios?\na. Si, por una persona particular\nb. Si, por los servicios de emergencias\nc. No\nd. No era necesaria la ayuda",
+    "english": "Did anyone provide first aid?\na. Yes, by an individual\nb. Yes, by the emergency services\nc. No\nd. No help needed\n",
+    "options": {
+      "a": "individual",
+      "b": "emergency services",
+      "c": "no",
+      "d": "no help needed"
+    },
+    "fields": ["injury_first_aid"],
+    "type": "single",
+    "none": ""
+  },
+  "7": {
+    "spanish": "Haga clic en el enlace para abrir una mapa, e indicar el lugar del accidente.",
+    "english": "Click on + > Location to open a map and indicate the crash site by dropping a pin.",
+    "fields": ["lat", "lon"],
+    "type": "location"
+  },
+  "end": {
+    "spanish": "",
+    "english": "Thank you! Please send a message if you want to make another report."
+  },
+  "none": ""
+}

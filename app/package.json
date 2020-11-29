@@ -1,0 +1,22 @@
+{
+  "name": "boliviabot",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./server.js"
+  },
+  "dependencies": {
+    "app-root-path": "^3.0.0",
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "dotenv": "^8.2.0",
+    "express": "~4.16.1",
+    "express-session": "^1.17.1",
+    "lodash": "^4.17.20",
+    "mariadb": "^2.4.2",
+    "morgan": "~1.9.1",
+    "ngrok": "^3.3.0",
+    "twilio": "^3.49.3",
+    "winston": "^3.3.3"
+  }
+}
