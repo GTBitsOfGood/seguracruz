@@ -26,15 +26,13 @@ router.get('/reports', (req, res) => {
           geometry: {
             type: 'Point',
             coordinates: [
-              item.lat,
               item.lon,
-              0
+              item.lat
             ]
           }
         }
         geojson.features.push(newFeature);
       }
-      console.log(geojson);
       res.status(200).json(geojson);
     })
     .catch(err => {

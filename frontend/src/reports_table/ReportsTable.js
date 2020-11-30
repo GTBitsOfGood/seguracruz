@@ -25,7 +25,8 @@ function ReportsTable(props) {
             </Table.Row>
           </Table.Header>
           <Table.Body>
-            { map(props.data, (report, i) => (
+            { props.data &&
+              map(props.data.features, (report, i) => (
                 <Table.Row key={i}>
                   <Table.Cell>{new Date(report.properties.timestamp).toLocaleDateString()}</Table.Cell>
                   <Table.Cell>{new Date(report.properties.timestamp).toLocaleTimeString()}</Table.Cell>
