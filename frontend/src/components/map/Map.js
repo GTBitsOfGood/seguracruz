@@ -36,11 +36,6 @@ function Map(props) {
     });
   };
 
-  useEffect(() =>{
-    console.log("-----------------------")
-    console.log(props.data);
-  }, [props]);
-
   return (
     <ReactMapGL
       {...viewport}

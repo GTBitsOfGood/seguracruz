@@ -11,3 +11,15 @@
 .filter-label {
   padding-bottom: 1em !important;
 }
+
+.field:nth-child(2) {
+  margin: 0 !important;
+}
+
+.field .field {
+  margin: 0 !important;
+}
+
+.fields {
+  margin-bottom: 2em !important;
+}
