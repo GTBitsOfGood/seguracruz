@@ -27,13 +27,13 @@ function ReportsTable(props) {
           <Table.Body>
             { map(props.data, (report, i) => (
                 <Table.Row key={i}>
-                  <Table.Cell>{new Date(report.datetime).toLocaleDateString()}</Table.Cell>
-                  <Table.Cell>{new Date(report.datetime).toLocaleTimeString()}</Table.Cell>
-                  <Table.Cell>{report.vehicles}</Table.Cell>
-                  <Table.Cell>{report.factors}</Table.Cell>
-                  <Table.Cell>{report.injury}</Table.Cell>
-                  <Table.Cell>{report.injury_description}</Table.Cell>
-                  <Table.Cell>{report.injury_first_aid}</Table.Cell>
+                  <Table.Cell>{new Date(report.properties.timestamp).toLocaleDateString()}</Table.Cell>
+                  <Table.Cell>{new Date(report.properties.timestamp).toLocaleTimeString()}</Table.Cell>
+                  <Table.Cell>{report.properties.vehicles}</Table.Cell>
+                  <Table.Cell>{report.properties.factors}</Table.Cell>
+                  <Table.Cell>{report.properties.injury}</Table.Cell>
+                  <Table.Cell>{report.properties.injury_description}</Table.Cell>
+                  <Table.Cell>{report.properties.injury_first_aid}</Table.Cell>
                 </Table.Row>
               ))
             }

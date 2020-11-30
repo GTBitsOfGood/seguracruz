@@ -26,7 +26,7 @@ function App() {
       <Filters />
       <div className='data-panel'>
         <Map />
-        <ReportsTable data={reports}/>
+        <ReportsTable data={reports.features}/>
       </div>
     </div>
   );
