@@ -1,5 +1,5 @@
 import React, {useState, useRef, useEffect} from 'react'
-import ReactMapGL, { Source, Layer } from 'react-map-gl';
+import ReactMapGL, { Source, Layer, NavigationControl} from 'react-map-gl';
 import {clusterLayer, clusterCountLayer, unclusteredPointLayer} from './Layers';
 
 function Map(props) {
@@ -13,7 +13,6 @@ function Map(props) {
   });
 
   function _onClick(event) {
-    props.removeItem();
     if (event.features.length === 0) {
       return;
     }
@@ -32,7 +31,7 @@ function Map(props) {
         longitude: feature.geometry.coordinates[0],
         latitude: feature.geometry.coordinates[1],
         zoom,
-        transitionDuration: 300
+        transitionDuration: 500
       });
     });
   };
@@ -68,6 +67,9 @@ function Map(props) {
           <Layer {...unclusteredPointLayer} />
         </Source>
       }
+      <div style={{position: 'absolute', right: 5, top: 5}}>
+        <NavigationControl />
+      </div>
     </ReactMapGL>
   )
 }
