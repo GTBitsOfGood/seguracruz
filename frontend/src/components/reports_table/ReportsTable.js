@@ -1,15 +1,41 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Table, Button} from 'semantic-ui-react';
 import {map} from 'lodash';
+import FileSaver from 'file-saver';
+import {CSVDownload, CSVLink} from 'react-csv';
 import './ReportsTable.css';
 
 function ReportsTable(props) {
+
+  const [csv, setCSV] = useState([]);
+
+  useEffect(() => {
+    let headers = ['Date', 'Time', 'Vehicles', 'Factors', 'Injury', 'Injury Description', 'First Aid']
+    let content = [headers]
+    if (props.data !== null) {
+      map(props.data.features, (report, i) => {
+        console.log(report)
+        let info = report.properties;
+        let row = [
+          new Date(info.timestamp).toLocaleDateString(),
+          new Date(info.timestamp).toLocaleTimeString(),
+          info.vehicles,
+          info.factors,
+          info.injury,
+          info.injury_description,
+          info.injury_first_aid
+        ]
+        content.push(row);
+      })
+      setCSV(content);
+    }
+  }, [props.data])
 
   return (
     <div id="table">
       <div id='table-heading'>
         <h2>Reports</h2>
-        <Button primary>Download</Button>
+        <CSVLink data={csv} download='data.csv'><Button primary>Download</Button></CSVLink>
       </div>  
       <div id='table-container'>
         <Table celled>
