@@ -38,7 +38,7 @@ function ReportsTable(props) {
         <CSVLink data={csv} download='data.csv'><Button primary>Download</Button></CSVLink>
       </div>  
       <div id='table-container'>
-        <Table celled>
+        <Table celled selectable>
           <Table.Header>
             <Table.Row>
               <Table.HeaderCell>Date</Table.HeaderCell>
@@ -53,7 +53,7 @@ function ReportsTable(props) {
           <Table.Body>
             { props.data &&
               map(props.data.features, (report, i) => (
-                <Table.Row key={i}>
+                <Table.Row key={i} onClick={() => props.setNewCoords([report.geometry.coordinates[0], report.geometry.coordinates[1]])}>
                   <Table.Cell>{new Date(report.properties.timestamp).toLocaleDateString()}</Table.Cell>
                   <Table.Cell>{new Date(report.properties.timestamp).toLocaleTimeString()}</Table.Cell>
                   <Table.Cell>{report.properties.vehicles}</Table.Cell>

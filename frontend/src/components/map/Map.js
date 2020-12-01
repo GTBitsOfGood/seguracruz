@@ -36,6 +36,18 @@ function Map(props) {
     });
   };
 
+  useEffect(() => {
+    if (props.newCoords.length > 0) {
+      setViewport({
+        ...viewport,
+        longitude: props.newCoords[0],
+        latitude: props.newCoords[1],
+        zoom: 13,
+        transitionDuration: 500
+      });
+    }
+  }, [props.newCoords])
+
   return (
     <ReactMapGL
       {...viewport}

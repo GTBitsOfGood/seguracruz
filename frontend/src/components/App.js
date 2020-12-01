@@ -19,6 +19,12 @@ function App() {
     injury_description: [],
     injury_first_aid: []
   });
+  const [newCoords, setNewCoords] = useState([]);
+
+  function assignCoords(coords) {
+    console.log(coords)
+    setNewCoords(coords)
+  }
   
   // First time page loads.
   useEffect(() => {
@@ -170,8 +176,8 @@ function App() {
     <div className="app">
       <Filters handleFilter={handleFilter} />
       <div className='data-panel'>
-        <Map data={filteredReports} removeItem={removeItem}/>
-        <ReportsTable data={filteredReports}/>
+        <Map data={filteredReports} removeItem={removeItem} newCoords={newCoords}/>
+        <ReportsTable data={filteredReports} setNewCoords={assignCoords}/>
       </div>
     </div>
   );
