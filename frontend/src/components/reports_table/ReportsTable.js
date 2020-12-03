@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Table, Button} from 'semantic-ui-react';
+import {Table, Button, Message} from 'semantic-ui-react';
 import {map} from 'lodash';
 import FileSaver from 'file-saver';
 import {CSVDownload, CSVLink} from 'react-csv';
@@ -38,34 +38,39 @@ function ReportsTable(props) {
         <CSVLink data={csv} download='data.csv'><Button primary>Download</Button></CSVLink>
       </div>  
       <div id='table-container'>
-        <Table celled selectable>
-          <Table.Header>
-            <Table.Row>
-              <Table.HeaderCell>Date</Table.HeaderCell>
-              <Table.HeaderCell>Time</Table.HeaderCell>
-              <Table.HeaderCell>Vehicles</Table.HeaderCell>
-              <Table.HeaderCell>Factors</Table.HeaderCell>
-              <Table.HeaderCell>Injury</Table.HeaderCell>
-              <Table.HeaderCell>Injury Description</Table.HeaderCell>
-              <Table.HeaderCell>First Aid</Table.HeaderCell>
-            </Table.Row>
-          </Table.Header>
-          <Table.Body>
-            { props.data &&
-              map(props.data.features, (report, i) => (
-                <Table.Row key={i} onClick={() => props.setNewCoords([report.geometry.coordinates[0], report.geometry.coordinates[1]])}>
-                  <Table.Cell>{new Date(report.properties.timestamp).toLocaleDateString()}</Table.Cell>
-                  <Table.Cell>{new Date(report.properties.timestamp).toLocaleTimeString()}</Table.Cell>
-                  <Table.Cell>{report.properties.vehicles}</Table.Cell>
-                  <Table.Cell>{report.properties.factors}</Table.Cell>
-                  <Table.Cell>{report.properties.injury}</Table.Cell>
-                  <Table.Cell>{report.properties.injury_description}</Table.Cell>
-                  <Table.Cell>{report.properties.injury_first_aid}</Table.Cell>
+        { props.data.features.length > 0
+          ? <Table celled selectable>
+              <Table.Header>
+                <Table.Row>
+                  <Table.HeaderCell>Date</Table.HeaderCell>
+                  <Table.HeaderCell>Time</Table.HeaderCell>
+                  <Table.HeaderCell>Vehicles</Table.HeaderCell>
+                  <Table.HeaderCell>Factors</Table.HeaderCell>
+                  <Table.HeaderCell>Injury</Table.HeaderCell>
+                  <Table.HeaderCell>Injury Description</Table.HeaderCell>
+                  <Table.HeaderCell>First Aid</Table.HeaderCell>
                 </Table.Row>
-              ))
-            }
-          </Table.Body>
-        </Table>
+              </Table.Header>
+              <Table.Body>
+                { map(props.data.features, (report, i) => (
+                    <Table.Row key={i} onClick={() => props.setNewCoords([report.geometry.coordinates[0], report.geometry.coordinates[1]])}>
+                      <Table.Cell>{new Date(report.properties.timestamp).toLocaleDateString()}</Table.Cell>
+                      <Table.Cell>{new Date(report.properties.timestamp).toLocaleTimeString()}</Table.Cell>
+                      <Table.Cell>{report.properties.vehicles}</Table.Cell>
+                      <Table.Cell>{report.properties.factors}</Table.Cell>
+                      <Table.Cell>{report.properties.injury}</Table.Cell>
+                      <Table.Cell>{report.properties.injury_description}</Table.Cell>
+                      <Table.Cell>{report.properties.injury_first_aid}</Table.Cell>
+                    </Table.Row>
+                  ))
+                }
+              </Table.Body>
+            </Table>
+          : <Message negative>
+              <Message.Header>No Reports</Message.Header>
+              <p>0 reports were found in the database.</p>
+            </Message>
+        }
       </div>
     </div>
   )

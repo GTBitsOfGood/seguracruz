@@ -8,8 +8,8 @@ import { filter } from 'lodash';
 
 function App() {
 
-  const [reports, setReports] = useState(null);
-  const [filteredReports, setFilteredReports] = useState(null);
+  const [reports, setReports] = useState({"type": "FeatureCollection", "features": []});
+  const [filteredReports, setFilteredReports] = useState({"type": "FeatureCollection", "features": []});
   const [filterOptions, setFilterOptions] = useState({
     from: null,
     to: null,
@@ -38,7 +38,7 @@ function App() {
 
   useEffect(() => {
     let newReports = [];
-    if (reports === null) { return }
+    if (reports.length < 1) { return }
     console.log(filterOptions)
     for (const report of reports.features) {
       let report_props = report.properties;
