@@ -1,0 +1,12 @@
+{
+  "name": "boliviabot",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.gatech.edu/mkoohang6/boliviabot.git",
+  "author": "Michael Koohang <michael.s.k1001@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "gh-pages": "^3.1.0",
+    "uuid": "^8.3.1"
+  }
+}
