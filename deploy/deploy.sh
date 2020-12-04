@@ -1,14 +1,14 @@
 #!/bin/bash
 
-echo "Deployment starting...\n"
-cd ../app
-rm -rf build node_modules
+echo "\nDeployment starting...\n"
+echo "\nCreating build folder...\n"
 cd ../frontend
 yarn install
 yarn run build
+echo "\Uploading files...\n"
 cd ../deploy
 node deploy.js
+echo "\nCleaning up...\n"
 cd ../app
 rm -rf build
-yarn install
-echo "Deployment complete!\n"
+echo "\nDeployment complete!\n"
