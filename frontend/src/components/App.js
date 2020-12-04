@@ -4,7 +4,17 @@ import './App.css';
 import Filters from './filters/Filters';
 import ReportsTable from './reports_table/ReportsTable';
 import Map from './map/Map';
-import { filter } from 'lodash';
+import { filter, isEqual} from 'lodash';
+
+const INITIAL_FILTERS = {
+  from: null,
+  to: null,
+  vehicles: [],
+  factors: [],
+  injury: [],
+  injury_description: [],
+  injury_first_aid: []
+}
 
 function App() {
 
@@ -39,71 +49,105 @@ function App() {
   useEffect(() => {
     let newReports = [];
     if (reports.length < 1) { return }
-    console.log(filterOptions)
     for (const report of reports.features) {
       let report_props = report.properties;
+      let isReportInFilter = false;
 
       if (filterOptions.from !== null && filterOptions.to !== null) {
         let report_date = new Date(report_props.timestamp).getTime();
         let from_date = new Date(filterOptions.from).getTime();
         let to_date = new Date(filterOptions.to).getTime();
         if (report_date >= from_date && report_date <= to_date) {
-          console.log(report)
-          newReports.push(report)
-          break;
+          isReportInFilter = true;
+        } else {
+          isReportInFilter = false;
         }
+        if (!isReportInFilter) { continue; };
       }
 
       if (filterOptions.vehicles.length > 0) {
         let vehicles = report_props.vehicles.split(',')
         for(const v of filterOptions.vehicles) {
           if (vehicles.includes(v)) {
-            newReports.push(report)
+            isReportInFilter = true;
+          } else {
+            isReportInFilter = false;
             break;
           }
         }
+        if (!isReportInFilter) { continue; };
       }
 
       if (filterOptions.factors.length > 0) {
         let factors = report_props.factors.split(',')
         for(const f of filterOptions.factors) {
           if (factors.includes(f)) {
-            newReports.push(report)
+            isReportInFilter = true;
+          } else {
+            isReportInFilter = false;
             break;
           }
         }
+        if (!isReportInFilter) { continue; };
       }
 
       if (filterOptions.injury.length > 0) {
-        let injury = filterOptions === "yes" ? 1 : 0
-        if (injury === report_props.injury) {
-          newReports.push(report);
-          break;
+        let injury = report_props.injury
+        console.log(injury)
+        for(const i of filterOptions.injury) {
+          let injury_num = i == "yes" ? 1 : 0
+          if (injury === injury_num) {
+            isReportInFilter = true;
+          } else {
+            isReportInFilter = false;
+            break;
+          }
         }
+        if (!isReportInFilter) { continue; };
       }
 
       if (filterOptions.injury_description.length > 0) {
-        let descriptions = report_props.injury_description.split(',')
-        for(const id of filterOptions.injury_description) {
-          if (descriptions.includes(id)) {
-            newReports.push(report)
-            break;
+        if (report_props.injury === 1) {
+          let description = report_props.injury_description
+          for(const id of filterOptions.injury_description) {
+            if (description === id) {
+              isReportInFilter = true;
+            } else {
+              isReportInFilter = false;
+              break;
+            }
           }
+          if (!isReportInFilter) { continue; };
         }
       }
 
       if (filterOptions.injury_first_aid.length > 0) {
-        let first_aid = report_props.first_aid.split(',')
-        for(const fa of filterOptions.first_aid) {
-          if (first_aid.includes(fa)) {
-            newReports.push(report)
-            break;
+        if (report_props.injury === 1) {
+          let first_aid = report_props.injury_first_aid
+          for(const fa of filterOptions.injury_first_aid) {
+            if (first_aid == fa) {
+              isReportInFilter = true
+            } else {
+              isReportInFilter = false;
+              break;
+            }
           }
+          if (!isReportInFilter) { continue; };
         }
       }
 
+      if (isReportInFilter) {
+        newReports.push(report);
+        isReportInFilter = false;
+      }
     }
-    if (newReports.length > 0) {
+
+    if (newReports.length < 1 && !isEqual(filterOptions, INITIAL_FILTERS)) {
+      setFilteredReports({
+        type: 'FeatureCollection', 
+        features: []
+      })
+    } else if (newReports.length > 0 && !isEqual(filterOptions, INITIAL_FILTERS)) {
       setFilteredReports({
         type: 'FeatureCollection', 
         features: newReports
@@ -113,13 +157,6 @@ function App() {
     }
     
   }, [filterOptions, reports])
-
-  function removeItem() {
-    setFilteredReports({
-      type: 'FeatureCollection', 
-      features: filter(filteredReports.features, (feature) => { return feature.properties.factors === 'fatigue'})
-    });
-  }
 
   function handleFilter(event, data) {
     let filter_state = filterOptions;
@@ -176,7 +213,7 @@ function App() {
     <div className="app">
       <Filters handleFilter={handleFilter} />
       <div className='data-panel'>
-        <Map data={filteredReports} removeItem={removeItem} newCoords={newCoords}/>
+        <Map data={filteredReports} newCoords={newCoords}/>
         <ReportsTable data={filteredReports} setNewCoords={assignCoords}/>
       </div>
     </div>

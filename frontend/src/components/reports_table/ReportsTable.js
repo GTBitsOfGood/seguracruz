@@ -1,8 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Table, Button, Message} from 'semantic-ui-react';
 import {map} from 'lodash';
-import FileSaver from 'file-saver';
-import {CSVDownload, CSVLink} from 'react-csv';
+import {CSVLink} from 'react-csv';
 import './ReportsTable.css';
 
 function ReportsTable(props) {
@@ -14,7 +13,6 @@ function ReportsTable(props) {
     let content = [headers]
     if (props.data !== null) {
       map(props.data.features, (report, i) => {
-        console.log(report)
         let info = report.properties;
         let row = [
           new Date(info.timestamp).toLocaleDateString(),

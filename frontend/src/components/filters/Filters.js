@@ -1,5 +1,5 @@
 import React from 'react'
-import {Form, Icon, Label} from 'semantic-ui-react';
+import {Form, Icon} from 'semantic-ui-react';
 import SemanticDatepicker from "react-semantic-ui-datepickers";
 import './Filters.css';
 import filters from '../../res/filters.json';
@@ -7,14 +7,6 @@ import { map } from 'lodash';
 
 function Filters(props) {
 
-  function selectDate(event, data) {
-    console.log(data);
-  }
-  
-  function selectToDate(event, data) {
-    console.log(data);
-  }
-  
   return (
     <div className="filters">
       <h1><Icon name='filter'/> Filters</h1>

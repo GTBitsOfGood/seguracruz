@@ -27,7 +27,6 @@ function Map(props) {
       }
 
       setViewport({
-        ...viewport,
         longitude: feature.geometry.coordinates[0],
         latitude: feature.geometry.coordinates[1],
         zoom,
@@ -39,7 +38,6 @@ function Map(props) {
   useEffect(() => {
     if (props.newCoords.length > 0) {
       setViewport({
-        ...viewport,
         longitude: props.newCoords[0],
         latitude: props.newCoords[1],
         zoom: 13,
