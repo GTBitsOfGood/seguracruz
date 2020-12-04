@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Table, Button, Message} from 'semantic-ui-react';
+import {Table, Button, Message, Dropdown, Icon} from 'semantic-ui-react';
 import {map, values} from 'lodash';
 import {headers} from '../../model/constants';
 import {CSVLink} from 'react-csv';
@@ -9,7 +9,7 @@ function ReportsTable(props) {
 
   const [csv, setCSV] = useState([]);
 
-  useEffect(() => {
+  function updateCSV() {
     let content = [values(headers.en)]
     if (props.data !== null) {
       map(props.data.features, (report, i) => {
@@ -27,13 +27,49 @@ function ReportsTable(props) {
       })
       setCSV(content);
     }
+  }
+
+  function downloadGeoJSON(objectData) {
+    let filename = "export.json";
+    let contentType = "application/json;charset=utf-8;";
+    if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+      var blob = new Blob([decodeURIComponent(encodeURI(JSON.stringify(objectData)))], { type: contentType });
+      navigator.msSaveOrOpenBlob(blob, filename);
+    } else {
+      var a = document.createElement('a');
+      a.download = filename;
+      a.href = 'data:' + contentType + ',' + encodeURIComponent(JSON.stringify(objectData));
+      a.target = '_blank';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    }
+  }
+
+  useEffect(() => {
+    updateCSV()
   }, [props.data])
 
   return (
     <div id="table">
       <div id='table-heading'>
         <h2>Reports</h2>
-        <CSVLink data={csv} download='data.csv'><Button primary>Download</Button></CSVLink>
+        <Button.Group color='blue'>
+          <Dropdown
+            text='Download'
+            icon='download'
+            floating
+            labeled
+            button
+            className='icon'
+          >
+            <Dropdown.Menu>
+              <Dropdown.Item><CSVLink data={csv} download='data.csv'>CSV</CSVLink></Dropdown.Item>
+              <Dropdown.Item onClick={() => downloadGeoJSON(props.data)}>GeoJSON</Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+        </Button.Group>
+        
       </div>  
       <div id='table-container'>
         { props.data.features.length > 0
