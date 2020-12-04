@@ -97,7 +97,7 @@ function App() {
         let injury = reportProps.injury
         console.log(injury)
         for(const i of filterOptions.injury) {
-          let injury_num = i === "yes" ? 1 : 0
+          let injury_num = i === "no" ? 0 : 1
           if (injury === injury_num) {
             isReportInFilter = true;
           } else {
@@ -173,7 +173,7 @@ function App() {
         if (data.checked) {
           filterState.entities.push(data.label.toLowerCase())
         } else {
-          filterState.entities = filter(filterState.vehicles, (vehicle) => vehicle !== data.label.toLowerCase())
+          filterState.entities = filter(filterState.entities, (entity) => entity !== data.label.toLowerCase())
         }
         break;
       case factors.name:
