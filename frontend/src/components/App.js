@@ -53,11 +53,21 @@ function App() {
       let report_props = report.properties;
       let isReportInFilter = false;
 
-      if (filterOptions.from !== null && filterOptions.to !== null) {
+      if (filterOptions.from !== null) {
         let report_date = new Date(report_props.timestamp).getTime();
         let from_date = new Date(filterOptions.from).getTime();
+        if (report_date >= from_date) {
+          isReportInFilter = true;
+        } else {
+          isReportInFilter = false;
+        }
+        if (!isReportInFilter) { continue; };
+      }
+
+      if (filterOptions.to !== null) {
+        let report_date = new Date(report_props.timestamp).getTime();
         let to_date = new Date(filterOptions.to).getTime();
-        if (report_date >= from_date && report_date <= to_date) {
+        if (report_date <= to_date) {
           isReportInFilter = true;
         } else {
           isReportInFilter = false;
