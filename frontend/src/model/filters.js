@@ -1,44 +1,39 @@
 
 import {values} from 'lodash';
-import {filtersTitle, fromDate, toDate, vehicles, factors, injury, injuryDescription, injuryFirstAid} from './constants';
+import {fromDate, toDate, entities, factors, injury, injuryDescription, injuryFirstAid} from './constants';
 
-let locale = 'en';
-
-export const filters = {
-  title: filtersTitle.name[locale],
-  filters: [
-    {
-      name: fromDate.name[locale],
-      type: 'date'
-    },
-    {
-      name: toDate.name[locale],
-      type: 'date'
-    },
-    {
-      name: vehicles.name[locale],
-      type: 'check',
-      options: values(vehicles.options[locale])
-    },
-    {
-      name: factors.name[locale],
-      type: 'check',
-      options: values(factors.options[locale])
-    },
-    {
-      name: injury.name[locale],
-      type: 'check',
-      options: values(injury.options[locale])
-    },
-    {
-      name: injuryDescription.name[locale],
-      type: 'check',
-      options: values(injuryDescription.options[locale])
-    },
-    {
-      name: injuryFirstAid.name[locale],
-      type: 'check',
-      options: values(injuryFirstAid.options[locale])
-    }
-  ]
-}
+export const filters = [
+  {
+    name: fromDate.name,
+    type: 'date'
+  },
+  {
+    name: toDate.name,
+    type: 'date'
+  },
+  {
+    name: entities.name,
+    type: 'check',
+    options: values(entities.options)
+  },
+  {
+    name: factors.name,
+    type: 'check',
+    options: values(factors.options)
+  },
+  {
+    name: injury.name,
+    type: 'check',
+    options: values(injury.options)
+  },
+  {
+    name: injuryDescription.name,
+    type: 'check',
+    options: values(injuryDescription.options)
+  },
+  {
+    name: injuryFirstAid.name,
+    type: 'check',
+    options: values(injuryFirstAid.options)
+  }
+]
