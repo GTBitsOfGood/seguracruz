@@ -1,72 +1,72 @@
 export const headers = {
-  DATE: 'Date',
-  TIME: 'Time',
-  ENTITIES: 'Entities',
-  FACTORS: 'Factors',
-  INJURY: 'Injury',
-  INJURY_DESCRIPTION: 'Injury Description',
-  INJURY_FIRST_AID: 'First Aid'
+  DATE: 'Fecha',
+  TIME: 'Tiempo',
+  ENTITIES: 'Involucrados',
+  FACTORS: 'Factores',
+  INJURY: 'Lesión',
+  INJURY_DESCRIPTION: 'Lesiones Descripción',
+  INJURY_FIRST_AID: 'Primeros auxilios'
 }
 
 export const fromDate = {
-  name: 'From',
+  name: 'Desde',
 }
 
 export const toDate = {
-  name: 'To'
+  name: 'A'
 }
 
 export const entities = {
-  name: 'Entities',
+  name: 'Involucrados',
   options: {
-    PRIVATE_VEHICLE: 'Private vehicle',
-    CAB: 'Cab',
+    PRIVATE_VEHICLE: 'Vehículo privado',
+    CAB: 'Taxi',
     MICRO_BUS: 'Micro bus',
-    MOTORCYCLE: 'Motorcycle',
-    TRUCK: 'Truck',
-    BICYCLE: 'Bicycle',
-    PEDESTRIAN: 'Pedestrian',
-    OBJECT_OR_BUILDING: 'Object or building'
+    MOTORCYCLE: 'Moto',
+    TRUCK: 'Camión',
+    BICYCLE: 'Bicicleta',
+    PEDESTRIAN: 'Peatón',
+    OBJECT_OR_BUILDING: 'Objeto o edificio'
   }
 }
 
 export const factors = {
-  name: 'Factors',
+  name: 'Factores',
   options: {
-    LIGHT: 'Lack of light',
-    SIGNAGE: 'Lack of signage',
-    WEATHER: 'Weather',
-    ALCOHOL_DRUGS: 'Alcohol or drugs',
-    TALK_TEXT: 'Talking or texting',
-    SEAT_BELT: 'Lack of seat belt',
-    FATIGUE: 'Fatigue',
-    NONE: 'None'
+    LIGHT: 'Falta de luz',
+    SIGNAGE: 'Falta de señalización',
+    WEATHER: 'Clima',
+    ALCOHOL_DRUGS: 'Alcohol o drogas',
+    TALK_TEXT: 'Hablando por teléfono o enviando mensaje de texto',
+    SEAT_BELT: 'Falta de cinturón de seguridad',
+    FATIGUE: 'Fatiga',
+    NONE: 'Ninguno de esos'
   }
 }
 
 export const injury = {
-  name: 'Injury',
+  name: 'Lesión',
   options: {
-    YES: 'Yes',
+    YES: 'Sí',
     NO: 'No'
   }
 }
 
 export const injuryDescription = {
-  name: 'Injury Description',
+  name: 'Lesiones Descripción',
   options: {
-    CONSCIOUS: 'Conscious',
-    UNCONSCIOUS: 'Unconscious',
-    DECEASED: 'Deceased'
+    CONSCIOUS: 'Consciente',
+    UNCONSCIOUS: 'Inconsciente',
+    DECEASED: 'Fallecido'
   }
 }
 
 export const injuryFirstAid = {
-  name: 'Injury First Aid',
+  name: 'Primeros auxilios',
   options: {
-    INDVIDUAL: 'Individual',
-    EMERGENCY_SERVICES: 'Emergency services',
+    INDVIDUAL: 'Una persona particular',
+    EMERGENCY_SERVICES: 'Los servicios de emergencias',
     NO: 'No',
-    NO_HELP_NEEDED: 'No help needed'
+    NO_HELP_NEEDED: 'No era necesaria la ayuda'
   }
 }

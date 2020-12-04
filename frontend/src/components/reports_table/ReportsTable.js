@@ -98,8 +98,8 @@ function ReportsTable(props) {
               </Table.Body>
             </Table>
           : <Message negative>
-              <Message.Header>No Reports</Message.Header>
-              <p>0 reports were found in the database.</p>
+              <Message.Header>Sin informes</Message.Header>
+              <p>Se encontraron 0 informes en la base de datos.</p>
             </Message>
         }
       </div>
