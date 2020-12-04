@@ -110,7 +110,7 @@ function App() {
 
       if (filterOptions.injuryDescription.length > 0) {
         if (reportProps.injury === 1) {
-          let description = reportProps.injuryDescription
+          let description = reportProps.injury_description
           for(const id of filterOptions.injuryDescription) {
             if (description === id) {
               isReportInFilter = true;
@@ -125,7 +125,7 @@ function App() {
 
       if (filterOptions.injuryFirstAid.length > 0) {
         if (reportProps.injury === 1) {
-          let first_aid = reportProps.injuryFirstAid
+          let first_aid = reportProps.injury_first_aid
           for(const fa of filterOptions.injuryFirstAid) {
             if (first_aid === fa) {
               isReportInFilter = true
