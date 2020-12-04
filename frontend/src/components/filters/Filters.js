@@ -2,22 +2,22 @@ import React from 'react'
 import {Form, Icon} from 'semantic-ui-react';
 import SemanticDatepicker from "react-semantic-ui-datepickers";
 import './Filters.css';
-import filters from '../../res/filters.json';
+import { filters } from '../../model/filters.js';
 import { map } from 'lodash';
 
 function Filters(props) {
 
   return (
     <div className="filters">
-      <h1><Icon name='filter'/> Filters</h1>
+      <h1><Icon name='filter'/> {filters.title}</h1>
       <Form>
-        { map(filters.filters, (filter) => (
-            <Form.Group grouped>
+        { map(filters.filters, (filter, i) => (
+            <Form.Group key={i} grouped>
               <h3>{filter.name}</h3>
               { filter.type === "date"
-                ? <SemanticDatepicker name={filter.name} locale="pt-BR" onChange={props.handleFilter} />
-                : map(filter.options, (option) => {
-                    return <Form.Checkbox name={filter.name} label={option} onChange={props.handleFilter} />
+                ? <SemanticDatepicker name={filter.name} locale="es-ES" onChange={props.handleFilter} />
+                : map(filter.options, (option, j) => {
+                    return <Form.Checkbox key={j} name={filter.name} label={option} onChange={props.handleFilter} />
                   })
               }
             </Form.Group>

@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Table, Button, Message} from 'semantic-ui-react';
-import {map} from 'lodash';
+import {map, values} from 'lodash';
+import {headers} from '../../model/constants';
 import {CSVLink} from 'react-csv';
 import './ReportsTable.css';
 
@@ -9,8 +10,7 @@ function ReportsTable(props) {
   const [csv, setCSV] = useState([]);
 
   useEffect(() => {
-    let headers = ['Date', 'Time', 'Vehicles', 'Factors', 'Injury', 'Injury Description', 'First Aid']
-    let content = [headers]
+    let content = [values(headers.en)]
     if (props.data !== null) {
       map(props.data.features, (report, i) => {
         let info = report.properties;
@@ -40,13 +40,10 @@ function ReportsTable(props) {
           ? <Table celled selectable>
               <Table.Header>
                 <Table.Row>
-                  <Table.HeaderCell>Date</Table.HeaderCell>
-                  <Table.HeaderCell>Time</Table.HeaderCell>
-                  <Table.HeaderCell>Vehicles</Table.HeaderCell>
-                  <Table.HeaderCell>Factors</Table.HeaderCell>
-                  <Table.HeaderCell>Injury</Table.HeaderCell>
-                  <Table.HeaderCell>Injury Description</Table.HeaderCell>
-                  <Table.HeaderCell>First Aid</Table.HeaderCell>
+                  { map(headers.en, (header, i) => (
+                      <Table.HeaderCell key={i}>{header}</Table.HeaderCell>
+                    ))
+                  }
                 </Table.Row>
               </Table.Header>
               <Table.Body>

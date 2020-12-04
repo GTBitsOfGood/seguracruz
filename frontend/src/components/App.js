@@ -95,7 +95,7 @@ function App() {
         let injury = report_props.injury
         console.log(injury)
         for(const i of filterOptions.injury) {
-          let injury_num = i == "yes" ? 1 : 0
+          let injury_num = i === "yes" ? 1 : 0
           if (injury === injury_num) {
             isReportInFilter = true;
           } else {
@@ -125,7 +125,7 @@ function App() {
         if (report_props.injury === 1) {
           let first_aid = report_props.injury_first_aid
           for(const fa of filterOptions.injury_first_aid) {
-            if (first_aid == fa) {
+            if (first_aid === fa) {
               isReportInFilter = true
             } else {
               isReportInFilter = false;
