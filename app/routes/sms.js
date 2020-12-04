@@ -15,7 +15,7 @@ router.post('/sms', (req, res) => {
   console.log(smsCount)
   if (smsCount === 0) {
     req.session.counter = smsCount + 1;
-    message = questions["1"].english;
+    message = questions["1"].text;
     twiml.message(message);
     res.writeHead(200, {'Content-Type': 'text/xml'});
     res.end(twiml.toString());
@@ -37,7 +37,7 @@ router.post('/sms', (req, res) => {
               .then(result => {
                 req.session.insertId = result.insertId;
                 req.session.counter = smsCount + 1;
-                message = questions[(smsCount + 1).toString()].english;
+                message = questions[(smsCount + 1).toString()].text;
                 twiml.message(message);
                 res.writeHead(200, {'Content-Type': 'text/xml'});
                 res.end(twiml.toString());
@@ -47,13 +47,13 @@ router.post('/sms', (req, res) => {
                 throw err;
               });
           } else {
-            message = errors.invalid_date.english;
+            message = errors.invalid_date.text;
             twiml.message(message);
             res.writeHead(200, {'Content-Type': 'text/xml'});
             res.end(twiml.toString());
           }
         } else {
-          message = errors.invalid_date.english;
+          message = errors.invalid_date.text;
           twiml.message(message);
           res.writeHead(200, {'Content-Type': 'text/xml'});
           res.end(twiml.toString());
@@ -67,7 +67,7 @@ router.post('/sms', (req, res) => {
             query.updateValues(keyFields, insertId)
               .then(() => {
                 req.session.counter = smsCount + 1;
-                message = questions[(smsCount + 1).toString()].english;
+                message = questions[(smsCount + 1).toString()].text;
                 twiml.message(message);
                 res.writeHead(200, {'Content-Type': 'text/xml'});
                 res.end(twiml.toString());
@@ -78,13 +78,13 @@ router.post('/sms', (req, res) => {
               });
             break;
           case 0:
-            message = errors.invalid_multiple_choice.english;
+            message = errors.invalid_multiple_choice.text;
             twiml.message(message);
             res.writeHead(200, {'Content-Type': 'text/xml'});
             res.end(twiml.toString());
             break;
           case -1:
-            message = errors.invalid_multiple_none_choice.english;
+            message = errors.invalid_multiple_none_choice.text;
             twiml.message(message);
             res.writeHead(200, {'Content-Type': 'text/xml'});
             res.end(twiml.toString());
@@ -100,21 +100,21 @@ router.post('/sms', (req, res) => {
               if ("skip" in question) {
                 if (question.skip.condition.toString() === answer) {
                   req.session.counter = question.skip.question;
-                  message = questions[(question.skip.question).toString()].english;
+                  message = questions[(question.skip.question).toString()].text;
                 } else {
                   req.session.counter = smsCount + 1;
-                  message = questions[(smsCount + 1).toString()].english;
+                  message = questions[(smsCount + 1).toString()].text;
                 }
               } else {
                 req.session.counter = smsCount + 1;
-                message = questions[(smsCount + 1).toString()].english;
+                message = questions[(smsCount + 1).toString()].text;
               }
               twiml.message(message);
               res.writeHead(200, {'Content-Type': 'text/xml'});
               res.end(twiml.toString());
             });
         } else {
-          message = errors.invalid_single_choice.english;
+          message = errors.invalid_single_choice.text;
           twiml.message(message);
           res.writeHead(200, {'Content-Type': 'text/xml'});
           res.end(twiml.toString());
@@ -127,7 +127,7 @@ router.post('/sms', (req, res) => {
           let keyFields = query.createKeyFields(questions[smsCount].fields, [lat, lon]);
           query.updateValues(keyFields, insertId)
             .then(() => {
-              message = questions.end.english;
+              message = questions.end.text;
               req.session.destroy();
               twiml.message(message);
               res.writeHead(200, {'Content-Type': 'text/xml'});
@@ -138,7 +138,7 @@ router.post('/sms', (req, res) => {
               throw err;
             });
         } else {
-          message = errors.invalid_location.english;
+          message = errors.invalid_location.text;
           twiml.message(message);
           res.writeHead(200, {'Content-Type': 'text/xml'});
           res.end(twiml.toString());

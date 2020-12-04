@@ -87,7 +87,7 @@ function ReportsTable(props) {
                     <Table.Row key={i} onClick={() => props.updateCoords([report.geometry.coordinates[0], report.geometry.coordinates[1]])}>
                       <Table.Cell>{new Date(report.properties.timestamp).toLocaleDateString()}</Table.Cell>
                       <Table.Cell>{new Date(report.properties.timestamp).toLocaleTimeString()}</Table.Cell>
-                      <Table.Cell>{report.properties.vehicles}</Table.Cell>
+                      <Table.Cell>{report.properties.entities}</Table.Cell>
                       <Table.Cell>{report.properties.factors}</Table.Cell>
                       <Table.Cell>{report.properties.injury}</Table.Cell>
                       <Table.Cell>{report.properties.injury_description}</Table.Cell>

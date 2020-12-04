@@ -17,7 +17,7 @@ router.get('/reports', (req, res) => {
           properties: {
             id: item.id,
             timestamp: item.datetime,
-            vehicles: item.vehicles,
+            entities: item.vehicles,
             factors: item.factors,
             injury: item.injury,
             injury_description: item.injury_description,

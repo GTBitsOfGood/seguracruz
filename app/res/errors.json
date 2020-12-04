@@ -1,22 +1,22 @@
 {
   "invalid_date": {
     "spanish": "",
-    "english": "Sorry. We couldn't understand your date. Please type a correct date in the following format -> 31-08 16:24"
+    "text": "Sorry. We couldn't understand your date. Please type a correct date in the following format -> 31-08 16:24"
   },
   "invalid_multiple_choice": {
     "spanish": "",
-    "english": "Sorry. We couldn't understand your answer. Please type all the letters that apply (ex. abc)."
+    "text": "Sorry. We couldn't understand your answer. Please type all the letters that apply (ex. abc)."
   },
   "invalid_multiple_none_choice": {
     "spanish": "",
-    "english": "Sorry. You cannot choose \"none of these\" and another answer. Please choose only \"none of these\" or the other options (ex1. abc, ex2. h)."
+    "text": "Sorry. You cannot choose \"none of these\" and another answer. Please choose only \"none of these\" or the other options (ex1. abc, ex2. h)."
   },
   "invalid_single_choice": {
     "spanish": "",
-    "english": "Sorry. We couldn't understand your answer. Please type only one letter (ex. a)."
+    "text": "Sorry. We couldn't understand your answer. Please type only one letter (ex. a)."
   },
   "invalid_location": {
     "spanish": "",
-    "english": "Sorry. It looks like we couldn't find that location. Please select a location by tapping the plus button, select \"location,\" and drop a pin where the accident happened."
+    "text": "Sorry. It looks like we couldn't find that location. Please select a location by tapping the plus button, select \"location,\" and drop a pin where the accident happened."
   }
 }
