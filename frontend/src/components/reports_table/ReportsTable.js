@@ -93,7 +93,7 @@ function ReportsTable(props) {
                 { map(props.data.features, (report, i) => (
                     <Table.Row key={i} onClick={() => props.updateCoords([report.geometry.coordinates[0], report.geometry.coordinates[1]])}>
                       <Table.Cell>{new Date(report.properties.timestamp).toLocaleDateString('es-ES')}</Table.Cell>
-                      <Table.Cell>{new Date(report.properties.timestamp).toLocaleTimeString('es-ES')}</Table.Cell>
+                      <Table.Cell>{new Date(report.properties.timestamp).toLocaleTimeString('es-ES', {hour: '2-digit', minute: '2-digit'})}</Table.Cell>
                       <Table.Cell>{report.properties.entities}</Table.Cell>
                       <Table.Cell>{report.properties.factors}</Table.Cell>
                       <Table.Cell>{report.properties.injury}</Table.Cell>
