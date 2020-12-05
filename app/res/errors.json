@@ -3,18 +3,18 @@
     "text": "Disculpe, no pudimos entender la fecha. Escriba la fecha correcta de la siguiente manera: 31-08 16:24"
   },
   "invalid_date_future": {
-    "text": "Sorry, you can't report dates in the future. Please try again."
+    "text": "Disculpe, no puede informar fechas en el futuro. Inténtalo de nuevo."
   },
   "invalid_multiple_choice": {
-    "text": "Sorry. We couldn't understand your answer. Please type all the letters that apply (ex. abc)."
+    "text": "Disculpe. No pudimos entender tu respuesta. Escriba todas las letras que correspondan (ej: abc)."
   },
   "invalid_multiple_none_choice": {
-    "text": "Sorry. You cannot choose \"none of these\" and another answer. Please choose only \"none of these\" or the other options (ex1. abc, ex2. h)."
+    "text": "Disculpe. No puede elegir \"ninguno de estos\" y otra respuesta. Elija sólo \"ninguna de estas\" o las otras opciones."
   },
   "invalid_single_choice": {
-    "text": "Sorry. We couldn't understand your answer. Please type only one letter (ex. a)."
+    "text": "Disculpe. No pudimos entender tu respuesta. Por favor escriba solo una letra (ej: a)."
   },
   "invalid_location": {
-    "text": "Sorry. It looks like we couldn't find that location. Please select a location by tapping the plus button, select \"location,\" and drop a pin where the accident happened."
+    "text": "Disculpe. No pudimos encontrar esa ubicación. Seleccione una ubicación tocando el botón más, seleccione \"ubicación\" y coloque un marcador donde ocurrió el accidente."
   }
 }
