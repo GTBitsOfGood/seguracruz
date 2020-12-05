@@ -97,6 +97,7 @@ function App() {
 
    // Update filters
    useEffect(() => {
+     console.log(filterOptions)
     let newReports = [];
     if (reports.length < 1) { return }
     for (const report of reports.features) {
@@ -126,7 +127,7 @@ function App() {
         if (!isReportInFilter) { continue; };
       }
 
-      if (filterOptions.time !== null) {
+      if (filterOptions.time.length > 0) {
         let reportHours = new Date(reportProps.timestamp).getHours();
         if (reportHours >= filterOptions.time[0] && reportHours < filterOptions.time[1]) {
           isReportInFilter = true;
@@ -164,7 +165,6 @@ function App() {
 
       if (filterOptions.injury.length > 0) {
         let injury = reportProps.injury
-        console.log(injury)
         for(const i of filterOptions.injury) {
           let injury_num = i === "no" ? 0 : 1
           if (injury === injury_num) {
@@ -183,12 +183,15 @@ function App() {
           for(const id of filterOptions.injuryDescription) {
             if (description === id) {
               isReportInFilter = true;
+              console.log("YRES")
             } else {
               isReportInFilter = false;
               break;
             }
           }
           if (!isReportInFilter) { continue; };
+        } else {
+          isReportInFilter = false;
         }
       }
 
@@ -204,6 +207,8 @@ function App() {
             }
           }
           if (!isReportInFilter) { continue; };
+        } else {
+          isReportInFilter = false;
         }
       }
 
