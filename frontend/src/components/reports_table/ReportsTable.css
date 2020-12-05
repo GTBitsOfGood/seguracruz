@@ -10,21 +10,14 @@
   margin-top: 1em;
 }
 
-#table-heading {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-
-#table-heading h2 {
-  flex: 1 !important;
+.table-heading h2 {
   margin: 0;
-}
-
-#table-heading .dropdown {
-  flex: 0 !important;
 }
 
 .table {
   overflow: scroll !important;
+}
+
+.count-label {
+   line-height: 18px !important;
 }

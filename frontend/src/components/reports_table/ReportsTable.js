@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Table, Button, Message, Dropdown, Icon} from 'semantic-ui-react';
+import {Table, Button, Message, Dropdown, Icon, Label, Grid} from 'semantic-ui-react';
 import {map, values} from 'lodash';
 import {headers} from '../../model/constants';
 import {CSVLink} from 'react-csv';
@@ -52,25 +52,32 @@ function ReportsTable(props) {
 
   return (
     <div id="table">
-      <div id='table-heading'>
-        <h2>Informes</h2>
-        <Button.Group color='blue'>
-          <Dropdown
-            text='Descargar'
-            icon='download'
-            floating
-            labeled
-            button
-            className='icon'
-          >
-            <Dropdown.Menu>
-              <Dropdown.Item><CSVLink data={csv} download='data.csv'>CSV</CSVLink></Dropdown.Item>
-              <Dropdown.Item onClick={() => downloadGeoJSON(props.data)}>GeoJSON</Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
-        </Button.Group>
-        
-      </div>  
+      <Grid className='table-heading' columns={3}>
+        <Grid.Row verticalAlign='middle'>
+          <Grid.Column textAlign='left'>
+            <h2>Informes</h2>
+          </Grid.Column>
+          <Grid.Column textAlign='center'>
+            <Label size='large'>{props.data.features.length} total</Label>
+          </Grid.Column>
+          <Grid.Column textAlign='right'>
+            <Button.Group color='blue'>
+              <Dropdown
+                text='Descargar'
+                icon='download'
+                labeled
+                button
+                className='icon'
+              >
+                <Dropdown.Menu>
+                  <Dropdown.Item><CSVLink data={csv} download='data.csv'>CSV</CSVLink></Dropdown.Item>
+                  <Dropdown.Item onClick={() => downloadGeoJSON(props.data)}>GeoJSON</Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
+            </Button.Group>
+          </Grid.Column>
+        </Grid.Row>
+      </Grid>  
       <div id='table-container'>
         { props.data.features.length > 0
           ? <Table celled selectable>
