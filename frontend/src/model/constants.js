@@ -74,3 +74,13 @@ export const injuryFirstAid = {
     NO_HELP_NEEDED: 'No era necesaria la ayuda'
   }
 }
+
+export const csvHeaders = {
+  DATE: 'Fecha',
+  TIME: 'Tiempo',
+  ...entities.options,
+  ...factors.options,
+  ...injury.options,
+  ...injuryDescription.options,
+  ...injuryFirstAid.options
+}

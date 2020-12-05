@@ -97,7 +97,6 @@ function App() {
 
    // Update filters
    useEffect(() => {
-     console.log(filterOptions)
     let newReports = [];
     if (reports.length < 1) { return }
     for (const report of reports.features) {

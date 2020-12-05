@@ -1,7 +1,7 @@
 import React, {useEffect, useState, useRef} from 'react';
 import {Table, Button, Message, Dropdown, Label, Grid} from 'semantic-ui-react';
 import {map, values} from 'lodash';
-import {headers} from '../../model/constants';
+import {headers, csvHeaders} from '../../model/constants';
 import {CSVLink} from 'react-csv';
 import './ReportsTable.css';
 
@@ -18,6 +18,10 @@ function ReportsTable(props) {
   function downloadGeoJSON() {
     jsonLink.current.click();
   }
+
+  useEffect(() => {
+    console.log(csvHeaders)
+  }, [])
 
   useEffect(() => {
     let content = [values(headers)]
