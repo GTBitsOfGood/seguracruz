@@ -1,14 +1,12 @@
 {
   "1": {
     "text": "Hola! ¿Cuál fue la fecha y hora del accidente?\nEjemplo: 31-08 16:24",
-    "english": "Hello! What was the date and time of the accident? Example -> 31-08 16:24",
     "fields": ["datetime"],
     "type": "date",
     "none": ""
   },
   "2": {
     "text": "¿Qué tipo de vehículos estaban involucrados en el accidente (indique todos los observados)?\na. Vehículo privado\nb. Taxi\nc. Micro bus\nd. Moto\ne. Camión\nf. Bicicleta\ng. Peatón\nh. Objeto o edificio",
-    "english": "What type of vehicles were involved in the accident (list all observed)?\na. Private vehicle\nb. Cab\nc. Micro bus\nd. Motorcycle\ne. Truck\nf. Bicycle\ng. Pedestrian\nh. Object or building",
     "options": {
       "a": "vehículo privado",
       "b": "taxi",
@@ -25,7 +23,6 @@
   },
   "3": {
     "text": "¿Qué factores contribuyeron al accidente (indique todos los posibles)?\na. Falta de luz\nb. Falta de señalización\nc. Clima\nd. Alcohol o drogas\ne. Hablando por teléfono o enviando mensaje de texto\nf. Falta de cinturón de seguridad\ng.Fatiga\nh.Ninguno de esos",
-    "english": "What factors contributed to the accident (check all possible)?\na. Lack of light\nb. Lack of signage\nc. Weather\nd. Alcohol or drugs\ne. Talking on the phone or texting\nf. Lack of seat belt\ng. Fatigue\nh. None of those",
     "options": {
       "a": "falta de luz",
       "b": "falta de señalización",
@@ -42,7 +39,6 @@
   },
   "4": {
     "text": "¿Alguien resultó lesionado físicamente a causa del accidente?\na. Sí\nb. No\n",
-    "english": "Was anyone physically injured from the accident?\na. Yes\nb. No",
     "options": {
       "a": 1,
       "b": 0
@@ -57,7 +53,6 @@
   },
   "5": {
     "text": "¿Cómo estaba la persona más lesionada?\na. Consciente (o “se mueve”)\nb. Inconsciente (o “no se mueve”)\nc. Fallecido",
-    "english": "How was the most injured person?\na. Conscious (or \"moves\")\nb. Unconscious (or \"not moving\")\nc. Deceased\n",
     "options": {
       "a": "consciente",
       "b": "inconsciente",
@@ -69,7 +64,6 @@
   },
   "6": {
     "text": "¿Alguién proveyó primeros auxilios?\na. Si, por una persona particular\nb. Si, por los servicios de emergencias\nc. No\nd. No era necesaria la ayuda",
-    "english": "Did anyone provide first aid?\na. Yes, by an individual\nb. Yes, by the emergency services\nc. No\nd. No help needed\n",
     "options": {
       "a": "una persona particular",
       "b": "los servicios de emergencias",
@@ -82,13 +76,11 @@
   },
   "7": {
     "text": "Haga clic en + en la parte inferior a la izquierda de su pantalla para abrir un mapa e indicar el lugar de la colisión colocando un alfiler.",
-    "english": "Click on + > Location to open a map and indicate the crash site by dropping a pin.",
     "fields": ["lat", "lon"],
-    "type": "location"
+    "type": "location",
+    "none": ""
   },
   "end": {
     "text": "¡Gracias! Envíe un mensaje nuevo siempre que desee realizar otro informe.",
-    "english": "Thank you! Please send a message if you want to make another report."
-  },
-  "none": ""
+  }
 }

@@ -1,26 +1,20 @@
 {
   "invalid_date": {
-    "spanish": "",
     "text": "Disculpe, no pudimos entender la fecha. Escriba la fecha correcta de la siguiente manera: 31-08 16:24"
   },
   "invalid_date_future": {
-    "spanish": "",
     "text": "Sorry, you can't report dates in the future. Please try again."
   },
   "invalid_multiple_choice": {
-    "spanish": "",
     "text": "Sorry. We couldn't understand your answer. Please type all the letters that apply (ex. abc)."
   },
   "invalid_multiple_none_choice": {
-    "spanish": "",
     "text": "Sorry. You cannot choose \"none of these\" and another answer. Please choose only \"none of these\" or the other options (ex1. abc, ex2. h)."
   },
   "invalid_single_choice": {
-    "spanish": "",
     "text": "Sorry. We couldn't understand your answer. Please type only one letter (ex. a)."
   },
   "invalid_location": {
-    "spanish": "",
     "text": "Sorry. It looks like we couldn't find that location. Please select a location by tapping the plus button, select \"location,\" and drop a pin where the accident happened."
   }
 }
