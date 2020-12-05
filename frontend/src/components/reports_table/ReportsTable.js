@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from 'react';
-import {Table, Button, Message, Dropdown, Icon, Label, Grid} from 'semantic-ui-react';
+import React, {useEffect, useState, useRef} from 'react';
+import {Table, Button, Message, Dropdown, Label, Grid} from 'semantic-ui-react';
 import {map, values} from 'lodash';
 import {headers} from '../../model/constants';
 import {CSVLink} from 'react-csv';
@@ -7,9 +7,19 @@ import './ReportsTable.css';
 
 function ReportsTable(props) {
 
-  const [csv, setCSV] = useState([]);
+  const [csvData, setCsvData] = useState([]);
+  const csvLink = useRef(null);
+  const jsonLink = useRef(null);
 
-  function updateCSV() {
+  function downloadCSV() {
+    csvLink.current.link.click();
+  }
+
+  function downloadGeoJSON() {
+    jsonLink.current.click();
+  }
+
+  useEffect(() => {
     let content = [values(headers)]
     if (props.data !== null) {
       map(props.data.features, (report, i) => {
@@ -25,29 +35,8 @@ function ReportsTable(props) {
         ]
         content.push(row);
       })
-      setCSV(content);
+      setCsvData(content);
     }
-  }
-
-  function downloadGeoJSON(objectData) {
-    let filename = "export.json";
-    let contentType = "application/json;charset=utf-8;";
-    if (window.navigator && window.navigator.msSaveOrOpenBlob) {
-      var blob = new Blob([decodeURIComponent(encodeURI(JSON.stringify(objectData)))], { type: contentType });
-      navigator.msSaveOrOpenBlob(blob, filename);
-    } else {
-      var a = document.createElement('a');
-      a.download = filename;
-      a.href = 'data:' + contentType + ',' + encodeURIComponent(JSON.stringify(objectData));
-      a.target = '_blank';
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-    }
-  }
-
-  useEffect(() => {
-    updateCSV()
   }, [props.data])
 
   return (
@@ -70,8 +59,20 @@ function ReportsTable(props) {
                 className='icon'
               >
                 <Dropdown.Menu>
-                  <Dropdown.Item><CSVLink data={csv} download='data.csv'>CSV</CSVLink></Dropdown.Item>
-                  <Dropdown.Item onClick={() => downloadGeoJSON(props.data)}>GeoJSON</Dropdown.Item>
+                  <Dropdown.Item onClick={() => downloadCSV()}>
+                    CSV
+                    <CSVLink className='download-csv' data={csvData} download='data.csv' ref={csvLink}>CSV</CSVLink>
+                  </Dropdown.Item>
+                  <Dropdown.Item onClick={() => downloadGeoJSON()}>
+                    GeoJSON
+                    <a 
+                      className='download-json' 
+                      ref={jsonLink} 
+                      href={`data:text/json;charset=utf-8,${encodeURIComponent(JSON.stringify(props.data))}`} 
+                      download="data.json">
+                        GeoJSON
+                    </a>
+                  </Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
             </Button.Group>
