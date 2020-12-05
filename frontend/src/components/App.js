@@ -1,15 +1,15 @@
 import React, {useEffect, useState} from 'react';
-import './App.css';
-
 import Filters from './filters/Filters';
 import ReportsTable from './reports_table/ReportsTable';
 import Map from './map/Map';
-import { filter, isEqual} from 'lodash';
+import {filter, isEqual} from 'lodash';
 import {fromDate, toDate, entities, factors, injury, injuryDescription, injuryFirstAid} from '../model/constants';
+import './App.css';
 
 const INITIAL_FILTERS = {
   from: null,
   to: null,
+  time: [],
   entities: [],
   factors: [],
   injury: [],
@@ -25,6 +25,7 @@ function App() {
   const [filterOptions, setFilterOptions] = useState({
     from: null,
     to: null,
+    time: [],
     entities: [],
     factors: [],
     injury: [],
@@ -37,8 +38,65 @@ function App() {
     setNewCoords(coords);
   }
 
-  // Update filter state
-  function updateFilters() {
+  // Handle filter when it is toggled
+  function handleFilter(event, data) {
+    let filterState = filterOptions;
+    switch(data.name) {
+      case fromDate.name:
+        filterState.from = data.value
+        break;
+      case toDate.name:
+        filterState.to = data.value
+        break;
+      case entities.name:
+        if (data.checked) {
+          filterState.entities.push(data.label.toLowerCase())
+        } else {
+          filterState.entities = filter(filterState.entities, (entity) => entity !== data.label.toLowerCase())
+        }
+        break;
+      case factors.name:
+        if (data.checked) {
+          filterState.factors.push(data.label.toLowerCase())
+        } else {
+          filterState.factors = filter(filterState.factors, (factor) => factor !== data.label.toLowerCase())
+        }
+        break;
+      case injury.name:
+        if (data.checked) {
+          filterState.injury.push(data.label.toLowerCase())
+        } else {
+          filterState.injury = filter(filterState.injury, (injury) => injury !== data.label.toLowerCase())
+        }
+        break;
+      case injuryDescription.name:
+        if (data.checked) {
+          filterState.injuryDescription.push(data.label.toLowerCase())
+        } else {
+          filterState.injuryDescription = filter(filterState.injuryDescription, (injuryDescription) => injuryDescription !== data.label.toLowerCase())
+        }
+        break;
+      case injuryFirstAid.name:
+        if (data.checked) {
+          filterState.injuryFirstAid.push(data.label.toLowerCase())
+        } else {
+          filterState.injuryFirstAid = filter(filterState.injuryFirstAid, (injuryFirstAid) => injuryFirstAid !== data.label.toLowerCase())
+        }
+        break;
+      default:
+        break;
+    }
+    setFilterOptions({...filterState});
+  }
+
+  function handleSliderFilter(event) {
+    let filterState = filterOptions;
+    filterState.time = event
+    setFilterOptions({...filterState});
+  }
+
+   // Update filters
+   useEffect(() => {
     let newReports = [];
     if (reports.length < 1) { return }
     for (const report of reports.features) {
@@ -48,6 +106,7 @@ function App() {
       if (filterOptions.from !== null) {
         let reportDate = new Date(reportProps.timestamp).getTime();
         let fromDate = new Date(filterOptions.from).getTime();
+        console.log(new Date(reportProps.timestamp).getHours());
         if (reportDate >= fromDate) {
           isReportInFilter = true;
         } else {
@@ -60,6 +119,16 @@ function App() {
         let reportDate = new Date(reportProps.timestamp).getTime();
         let toDate = new Date(filterOptions.to).getTime();
         if (reportDate <= toDate) {
+          isReportInFilter = true;
+        } else {
+          isReportInFilter = false;
+        }
+        if (!isReportInFilter) { continue; };
+      }
+
+      if (filterOptions.time !== null) {
+        let reportHours = new Date(reportProps.timestamp).getHours();
+        if (reportHours >= filterOptions.time[0] && reportHours <= filterOptions.time[1]) {
           isReportInFilter = true;
         } else {
           isReportInFilter = false;
@@ -157,58 +226,7 @@ function App() {
     } else {
       setFilteredReports({...reports})
     }
-  }
-
-  // Handle filter when it is toggled
-  function handleFilter(event, data) {
-    let filterState = filterOptions;
-    switch(data.name) {
-      case fromDate.name:
-        filterState.from = data.value
-        break;
-      case toDate.name:
-        filterState.to = data.value
-        break;
-      case entities.name:
-        if (data.checked) {
-          filterState.entities.push(data.label.toLowerCase())
-        } else {
-          filterState.entities = filter(filterState.entities, (entity) => entity !== data.label.toLowerCase())
-        }
-        break;
-      case factors.name:
-        if (data.checked) {
-          filterState.factors.push(data.label.toLowerCase())
-        } else {
-          filterState.factors = filter(filterState.factors, (factor) => factor !== data.label.toLowerCase())
-        }
-        break;
-      case injury.name:
-        if (data.checked) {
-          filterState.injury.push(data.label.toLowerCase())
-        } else {
-          filterState.injury = filter(filterState.injury, (injury) => injury !== data.label.toLowerCase())
-        }
-        break;
-      case injuryDescription.name:
-        if (data.checked) {
-          filterState.injuryDescription.push(data.label.toLowerCase())
-        } else {
-          filterState.injuryDescription = filter(filterState.injuryDescription, (injuryDescription) => injuryDescription !== data.label.toLowerCase())
-        }
-        break;
-      case injuryFirstAid.name:
-        if (data.checked) {
-          filterState.injuryFirstAid.push(data.label.toLowerCase())
-        } else {
-          filterState.injuryFirstAid = filter(filterState.injuryFirstAid, (injuryFirstAid) => injuryFirstAid !== data.label.toLowerCase())
-        }
-        break;
-      default:
-        break;
-    }
-    setFilterOptions({...filterState});
-  }
+  }, [filterOptions, reports])
 
   // Get reports each time page loads
   useEffect(() => {
@@ -220,14 +238,9 @@ function App() {
       });
   }, []);
 
-  // Update filters
-  useEffect(() => {
-    updateFilters()
-  }, [filterOptions, reports])
-
   return (
     <div className="app">
-      <Filters handleFilter={handleFilter} />
+      <Filters handleFilter={handleFilter} handleSliderFilter={handleSliderFilter}/>
       <div className='data-panel'>
         <Map data={filteredReports} newCoords={newCoords}/>
         <ReportsTable data={filteredReports} updateCoords={updateCoords}/>

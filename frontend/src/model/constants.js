@@ -16,6 +16,10 @@ export const toDate = {
   name: 'A'
 }
 
+export const time = {
+  name: 'Tiempo'
+}
+
 export const entities = {
   name: 'Involucrados',
   options: {

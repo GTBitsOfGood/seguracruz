@@ -1,6 +1,6 @@
 
 import {values} from 'lodash';
-import {fromDate, toDate, entities, factors, injury, injuryDescription, injuryFirstAid} from './constants';
+import {fromDate, toDate, time, entities, factors, injury, injuryDescription, injuryFirstAid} from './constants';
 
 export const filters = [
   {
@@ -10,6 +10,10 @@ export const filters = [
   {
     name: toDate.name,
     type: 'date'
+  },
+  {
+    name: time.name,
+    type: 'time'
   },
   {
     name: entities.name,

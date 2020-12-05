@@ -23,3 +23,11 @@
 .fields {
   margin-bottom: 2em !important;
 }
+
+.timeSlider {
+  margin: 0 1.5em;
+}
+
+.timeGrid .row:nth-child(1) {
+  padding-bottom: 0 !important;
+}
