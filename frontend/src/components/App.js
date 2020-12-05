@@ -128,7 +128,7 @@ function App() {
 
       if (filterOptions.time !== null) {
         let reportHours = new Date(reportProps.timestamp).getHours();
-        if (reportHours >= filterOptions.time[0] && reportHours <= filterOptions.time[1]) {
+        if (reportHours >= filterOptions.time[0] && reportHours < filterOptions.time[1]) {
           isReportInFilter = true;
         } else {
           isReportInFilter = false;
