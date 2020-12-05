@@ -17,7 +17,7 @@ app.use(express.static(path.resolve("./") + "/build"));
 app.use(express.json());
 app.use(express.urlencoded({"extended": false}))
 app.use(session(
-  { secret: "92l%05n@038d", expires: new Date(Date.now() + (1000 * 60 * 5)), saveUninitialized: false, resave: false}
+  { secret: process.env.SECRET, expires: new Date(Date.now() + (1000 * 60 * 5)), saveUninitialized: false, resave: false}
 ));
 app.use(morgan('combined', {stream: winston.stream}));
 app.use(smsRouter);
