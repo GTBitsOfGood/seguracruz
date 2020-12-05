@@ -10,14 +10,14 @@ function ReportsTable(props) {
   const [csv, setCSV] = useState([]);
 
   function updateCSV() {
-    let content = [values(headers.en)]
+    let content = [values(headers)]
     if (props.data !== null) {
       map(props.data.features, (report, i) => {
         let info = report.properties;
         let row = [
           new Date(info.timestamp).toLocaleDateString(),
           new Date(info.timestamp).toLocaleTimeString(),
-          info.vehicles,
+          info.entities,
           info.factors,
           info.injury,
           info.injury_description,
