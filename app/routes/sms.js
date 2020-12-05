@@ -32,7 +32,7 @@ router.post('/sms', (req, res) => {
           let minute = parseInt(matches[4]);
           let year = new Date().getFullYear();
           let newDate = new Date(year, month - 1, day, hour, minute);
-          if (newDate.getMonth() === month - 1) {
+          if (newDate.getMonth() === month - 1 && newDate.getTime() <= new Date().getTime()) {
             query.insertRecord(newDate)
               .then(result => {
                 req.session.insertId = result.insertId;
@@ -47,7 +47,11 @@ router.post('/sms', (req, res) => {
                 throw err;
               });
           } else {
-            message = errors.invalid_date.text;
+            if (newDate.getTime() > new Date().getTime()) {
+              message = errors.invalid_date_future
+            } else {
+              message = errors.invalid_date.text;
+            }
             twiml.message(message);
             res.writeHead(200, {'Content-Type': 'text/xml'});
             res.end(twiml.toString());

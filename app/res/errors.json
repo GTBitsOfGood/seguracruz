@@ -3,6 +3,10 @@
     "spanish": "",
     "text": "Disculpe, no pudimos entender la fecha. Escriba la fecha correcta de la siguiente manera: 31-08 16:24"
   },
+  "invalid_date_future": {
+    "spanish": "",
+    "text": "Sorry, you can't report dates in the future. Please try again."
+  },
   "invalid_multiple_choice": {
     "spanish": "",
     "text": "Sorry. We couldn't understand your answer. Please type all the letters that apply (ex. abc)."
