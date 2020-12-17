@@ -20,7 +20,7 @@ router.post('/login', (req, res) => {
             res.cookie('token', token, {
               maxAge: 60 * 60 * 1000 * 12,
               httpOnly: true,
-              secure: false,
+              secure: true,
               sameSite: true
             })
             res.status(200).json({success: 1, message: "login successful"})
