@@ -38,7 +38,7 @@ function App() {
     injuryFirstAid: []
   });
 
-  // Login functionality 
+  // Login user
   function login() {
     fetch('/api/auth/login', {
       method: 'POST',
@@ -59,6 +59,7 @@ function App() {
     });
   }
 
+  // Logout user
   function logout() {
     fetch('/api/auth/logout', {
       method: 'POST',
@@ -71,6 +72,7 @@ function App() {
     });
   }
 
+  // Update id and password fields while typing
   function handleFormChange(event) {
     if (event.target.name === 'id') {
       setId(event.target.value);
@@ -92,7 +94,7 @@ function App() {
     });
   }, [loggedIn]);
 
-  // Check user is authenticated every time page refreshes
+  // Check user is still logged in every time page refreshes
   useEffect(() => {
     fetch('/api/auth/verify', {
       method: 'POST'
