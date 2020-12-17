@@ -6,7 +6,7 @@ const utils = require('../res/utils');
 const jwt = require('jsonwebtoken');
 const router = express.Router();
 
-// All reports
+// Login user
 router.post('/login', (req, res) => {
   let id = typeof req.body.id !== "undefined" ? req.body.id : "";
   let password = typeof req.body.password !== "undefined" ? req.body.password : "";
@@ -36,11 +36,13 @@ router.post('/login', (req, res) => {
   }
 });
 
+// Logout user
 router.post('/logout', (req, res) => {
   res.clearCookie('token');
   res.status(200).json({success: 1, message: "logout successful"});
 });
 
+// Verify the user is still logged in
 router.post('/verify', (req, res) => {
   const token = req.cookies.token
   if (token == null) return res.status(401).json({success: 0, message: "missing token"});

@@ -4,7 +4,7 @@ const utils = require('../res/utils');
 const router = express.Router();
 const winston = require('../res/winston');
 
-// All reports
+// Get all reports
 router.get('/reports', utils.authenticateToken, (req, res) => {
   queries.selectAllRecords()
     .then(data => {
