@@ -15,7 +15,14 @@ router.post('/login', (req, res) => {
       .then(rows => {
         if (rows.length > 0) {
           if (rows[0].password === hashPassword) {
-            res.status(200).json({success: 1, token: utils.generateAccessToken(id)})
+            let token = utils.generateAccessToken(id);
+            res.cookie('token', token, {
+              maxAge: 60 * 60 * 1000 * 12,
+              httpOnly: true,
+              secure: true,
+              sameSite: true
+            })
+            res.status(200).json({success: 1, message: "login successful"})
           } else {
             res.status(200).json({success: 0, message: "incorrect password"})
           }
