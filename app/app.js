@@ -11,6 +11,7 @@ if (process.env.NODE_ENV !== 'production') {
 // Routes
 const smsRouter = require('./routes/sms');
 const apiRouter = require('./routes/api');
+const authRouter = require('./routes/auth');
 
 const app = express();
 app.use(express.static(path.resolve("./") + "/build"));
@@ -22,5 +23,6 @@ app.use(session(
 app.use(morgan('combined', {stream: winston.stream}));
 app.use(smsRouter);
 app.use('/api', apiRouter);
+app.use('/api', authRouter);
 
 module.exports = app;

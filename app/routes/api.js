@@ -1,10 +1,11 @@
 const express = require('express');
 const queries = require('../res/query');
+const utils = require('../res/utils');
 const router = express.Router();
 const winston = require('../res/winston');
 
 // All reports
-router.get('/reports', (req, res) => {
+router.get('/reports', utils.authenticateToken, (req, res) => {
   queries.selectAllRecords()
     .then(data => {
       geojson = {
