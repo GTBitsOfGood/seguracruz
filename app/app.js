@@ -25,6 +25,6 @@ app.use(session(
 app.use(morgan('combined', {stream: winston.stream}));
 app.use(smsRouter);
 app.use('/api', apiRouter);
-app.use('/api', authRouter);
+app.use('/api/auth', authRouter);
 
 module.exports = app;
