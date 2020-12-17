@@ -34,7 +34,7 @@ router.get('/reports', utils.authenticateToken, (req, res) => {
         }
         geojson.features.push(newFeature);
       }
-      res.status(200).json(geojson);
+      res.status(200).json({success: 1, data: geojson});
     })
     .catch(err => {
       winston.error(`${err.status || 500} - ${err.message} - ${req.originalUrl} - ${req.method} - ${req.ip}`);

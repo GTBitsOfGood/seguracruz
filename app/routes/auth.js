@@ -3,6 +3,7 @@ const crypto = require('crypto');
 const express = require('express');
 const queries = require('../res/query');
 const utils = require('../res/utils');
+const jwt = require('jsonwebtoken');
 const router = express.Router();
 
 // All reports
@@ -19,20 +20,30 @@ router.post('/login', (req, res) => {
             res.cookie('token', token, {
               maxAge: 60 * 60 * 1000 * 12,
               httpOnly: true,
-              secure: true,
+              secure: false,
               sameSite: true
             })
             res.status(200).json({success: 1, message: "login successful"})
           } else {
-            res.status(200).json({success: 0, message: "incorrect password"})
+            res.status(401).json({success: 0, message: "incorrect password"})
           }
         } else {
-          res.status(200).json({success: 0, message: "no matching id exists"})
+          res.status(401).json({success: 0, message: "no matching id exists"})
         }
       });
   } else {
     res.status(400).json({success: 0, message: "username or password missing."})
   }
+});
+
+router.post('/verify', (req, res) => {
+  const token = req.cookies.token
+  if (token == null) return res.status(401).json({success: 0, message: "missing token"});
+
+  jwt.verify(token, process.env.TOKEN_SECRET, (err) => {
+    if (err) return res.status(401).json({success: 0, message: "unauthorized"});
+    res.status(200).json({success: 1, message: "token verified"})
+  });
 });
 
 module.exports = router
