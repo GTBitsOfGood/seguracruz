@@ -5,6 +5,7 @@ import Map from './map/Map';
 import {filter, isEqual} from 'lodash';
 import {fromDate, toDate, entities, factors, injury, injuryDescription, injuryFirstAid} from '../model/constants';
 import './App.css';
+import { Button, Icon, Form, Grid, Message } from 'semantic-ui-react';
 
 const INITIAL_FILTERS = {
   from: null,
@@ -19,6 +20,10 @@ const INITIAL_FILTERS = {
 
 function App() {
 
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [showLoginError, setShowLoginError] = useState(false);
+  const [id, setId] = useState('');
+  const [password, setPassword] = useState('');
   const [reports, setReports] = useState({"type": "FeatureCollection", "features": []});
   const [filteredReports, setFilteredReports] = useState({"type": "FeatureCollection", "features": []});
   const [newCoords, setNewCoords] = useState([]);
@@ -32,6 +37,78 @@ function App() {
     injuryDescription: [],
     injuryFirstAid: []
   });
+
+  // Login functionality 
+  function login() {
+    fetch('/api/auth/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({id: id, password: password}),
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.success === 1) {
+        setShowLoginError(false);
+        setLoggedIn(true)
+      } else {
+        setShowLoginError(true);
+        setLoggedIn(false);
+      }
+    });
+  }
+
+  function logout() {
+    fetch('/api/auth/logout', {
+      method: 'POST',
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.success === 1) {
+        setLoggedIn(false)
+      }
+    });
+  }
+
+  function handleFormChange(event) {
+    if (event.target.name === 'id') {
+      setId(event.target.value);
+    }
+
+    if (event.target.name === 'password') {
+      setPassword(event.target.value);
+    }
+  }
+
+  // Get reports each time user logs in
+  useEffect(() => {
+    if (!loggedIn) return;
+    fetch('/api/reports')
+    .then(response => response.json())
+    .then(data => {
+      setReports(data.data);
+      setFilteredReports(data.data);
+    });
+  }, [loggedIn]);
+
+  // Check user is authenticated every time page refreshes
+  useEffect(() => {
+    fetch('/api/auth/verify', {
+      method: 'POST'
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.success === 1) {
+        setShowLoginError(false);
+        setLoggedIn(true);
+      } else {
+        setLoggedIn(false);
+        setReports({"type": "FeatureCollection", "features": []});
+        setFilteredReports({"type": "FeatureCollection", "features": []});
+      }
+    });
+  }, []);
 
   // Update coordinates of the map
   function updateCoords(coords) {
@@ -97,6 +174,7 @@ function App() {
 
    // Update filters
    useEffect(() => {
+    if (!loggedIn) return;
     let newReports = [];
     if (reports.length < 1) { return }
     for (const report of reports.features) {
@@ -230,25 +308,64 @@ function App() {
     } else {
       setFilteredReports({...reports})
     }
-  }, [filterOptions, reports])
-
-  // Get reports each time page loads
-  useEffect(() => {
-    fetch('/api/reports')
-      .then(response => response.json())
-      .then(data => {
-        setReports(data);
-        setFilteredReports(data);
-      });
-  }, []);
+  }, [filterOptions, reports, loggedIn])
 
   return (
     <div className="app">
-      <Filters handleFilter={handleFilter} handleSliderFilter={handleSliderFilter}/>
-      <div className='data-panel'>
-        <Map data={filteredReports} newCoords={newCoords}/>
-        <ReportsTable data={filteredReports} updateCoords={updateCoords}/>
-      </div>
+      { loggedIn
+        ? <div>
+            <Filters handleFilter={handleFilter} handleSliderFilter={handleSliderFilter}/>
+            <div className='data-panel'>
+              <Map data={filteredReports} newCoords={newCoords}/>
+              <ReportsTable data={filteredReports} updateCoords={updateCoords} logout={logout}/>
+            </div>
+          </div>
+        : <Grid className='login-grid' stretched>
+            <Grid.Column className='login-col-left' width={8}>
+              <div className='login-title-container'>
+                <h1 className='login-title'>Boliviabot</h1>
+                <p className='login-emoji'>
+                  <span role='img' aria-label='bolivian flag'>🇧🇴 </span>
+                  <span role='img' aria-label='red car'>🚗 </span> 
+                  <span role='img' aria-label='phone'>📱</span>  
+                </p>
+              </div>
+              
+            </Grid.Column>
+            <Grid.Column className='login-col-right' width={8}>
+              <Form className='login-form'>
+                <Form.Input
+                  name='id'
+                  control='input'
+                  placeholder='ID'
+                  onChange={handleFormChange}
+                />
+                <Form.Input
+                  name='password'
+                  control='input'
+                  type='password'
+                  placeholder='Contraseña'
+                  onChange={handleFormChange}
+                />
+                { showLoginError &&
+                  <Message color='red'>
+                  <Message.Header>
+                    Usuario o contraseña incorrectos. Inténtalo de nuevo.
+                  </Message.Header>
+                  </Message>
+                }
+                <Button 
+                  className='login-button' 
+                  icon 
+                  labelPosition='right' 
+                  onClick={() => login()}
+                  type='submit'>
+                    Inicia sesión <Icon name='right arrow' />
+                </Button>
+              </Form>
+            </Grid.Column>
+          </Grid>
+      }
     </div>
   );
 }

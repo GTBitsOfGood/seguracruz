@@ -56,19 +56,19 @@ function ReportsTable(props) {
           <Grid.Column textAlign='right'>
             <Button.Group color='blue'>
               <Dropdown
-                text='Descargar'
-                icon='download'
+                text='Opciones'
+                icon='chevron down'
                 labeled
                 button
                 className='icon'
               >
                 <Dropdown.Menu>
                   <Dropdown.Item onClick={() => downloadCSV()}>
-                    CSV
+                    Descargar CSV
                     <CSVLink className='download-csv' data={csvData} download='data.csv' ref={csvLink}>CSV</CSVLink>
                   </Dropdown.Item>
                   <Dropdown.Item onClick={() => downloadGeoJSON()}>
-                    GeoJSON
+                    Descargar GeoJSON
                     <a 
                       className='download-json' 
                       ref={jsonLink} 
@@ -76,6 +76,9 @@ function ReportsTable(props) {
                       download="data.json">
                         GeoJSON
                     </a>
+                  </Dropdown.Item>
+                  <Dropdown.Item onClick={props.logout}>
+                    Cerrar sesión
                   </Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
