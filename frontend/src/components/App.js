@@ -51,7 +51,9 @@ function App() {
     .then(data => {
       if (data.success === 1) {
         setShowLoginError(false);
-        setLoggedIn(true)
+        setLoggedIn(true);
+        setId('');
+        setPassword('');
       } else {
         setShowLoginError(true);
         setLoggedIn(false);
