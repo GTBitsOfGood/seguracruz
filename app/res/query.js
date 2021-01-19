@@ -20,7 +20,6 @@ module.exports = {
   },
   updateValues: (keyFields, id) => {
     let sql = `update reports set ${keyFields} where id = ${id}`;
-    console.log(sql);
     return db.query(sql);
   },
   createKeyFields: (fields, values) => {

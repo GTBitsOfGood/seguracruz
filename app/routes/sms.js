@@ -12,7 +12,6 @@ router.post('/sms', (req, res) => {
   let smsCount = req.session.counter || 0;
   let insertId = req.session.insertId || null;
   let twiml = new MessagingResponse();
-  console.log(smsCount)
   if (smsCount === 0) {
     req.session.counter = smsCount + 1;
     message = questions["1"].text;
