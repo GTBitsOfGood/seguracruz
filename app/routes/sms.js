@@ -47,7 +47,7 @@ router.post('/sms', (req, res) => {
               });
           } else {
             if (newDate.getTime() > new Date().getTime()) {
-              message = errors.invalid_date_future
+              message = errors.invalid_date_future.text
             } else {
               message = errors.invalid_date.text;
             }
