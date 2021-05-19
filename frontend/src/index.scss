@@ -1,0 +1,26 @@
+
+@import './style/colors.scss';
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  height: 100vh;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  font-family: 'Farro', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6, p, a, .button, .label, .checkbox, td, th {
+  font-family: 'Farro', sans-serif !important;
+}
+
+hr {
+  border: 1px solid $medium-gray;
+  width: 100%;
+}

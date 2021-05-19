@@ -1,0 +1,128 @@
+
+@import '../../style/colors.scss';
+
+.home-nav {
+  padding: 1.5em 3em;
+  display: flex;
+  align-items: center;
+  box-shadow: 0px 0px 10px 8px $medium-gray;
+}
+
+.dash-button {
+  margin: 0;
+  outline: none;
+  border: none;
+  background-color: $green;
+  color: white;
+  font-family: 'Farro';
+  padding: 0.75em 0.75em 0.75em 1em;
+  border-radius: 5px;
+
+  .icon {
+    margin-left: 0.25em;
+  }
+}
+
+.dash-button:hover {
+  cursor: pointer;
+  opacity: 0.8;
+}
+
+.header { 
+  display: flex; 
+  flex: 1;
+}
+
+.header-content {
+  padding: 3em;
+  display: flex;
+  justify-content: center;
+}
+
+.header-title { 
+  flex: 1;
+  margin: 0;
+  a {
+    color: $black;
+  }
+  a:hover {
+    color: $black;
+  }
+}
+
+.header-text {
+  font-size: 16px;
+  font-weight: 300;
+}
+
+.phone {
+  width: 225px;
+  height: 445px;
+}
+
+.header-message {
+  margin-left: 1em;
+}
+
+.header-message-example {
+  display: flex;
+  align-items: center;
+}
+
+.text-example {
+  font-size: 24px;
+  margin-left: 0.25em;
+}
+
+.animation {
+  width: 100px;
+}
+
+.phone-info
+
+.phone-number {
+  font-size: 48px;
+  font-weight: 600;
+  color: $green;
+  margin-left: 0.4em;
+  margin-bottom: 0;
+}
+
+.phone-number-text {
+  margin-left: 1em;
+  max-width: 450px;
+  margin-top: 1em;
+  font-size: 16px;
+}
+
+.download {
+  margin-left: 1em;
+  margin-top: 1.5em;
+}
+
+@media (max-width: 676px) {
+  .header { 
+    text-align: center; 
+    flex-direction: column;
+  }
+  .header-content {
+    flex-direction: column-reverse;
+    text-align: center;
+  }
+  .phone {
+    margin: 0 auto;
+    margin-top: 4em;
+  }
+  .text-example {
+    margin: 0;
+  }
+  .header-message {
+    margin-left: 0;
+  }
+  .header-message-example {
+    justify-content: center;
+  }
+  .phone-number-text {
+    margin: 0 auto;
+  }
+}

@@ -3,7 +3,7 @@ import {Table, Button, Message, Dropdown, Label, Grid} from 'semantic-ui-react';
 import {map, values} from 'lodash';
 import {headers, csvHeaders} from '../../model/constants';
 import {CSVLink} from 'react-csv';
-import './ReportsTable.css';
+import './ReportsTable.scss';
 
 function ReportsTable(props) {
 

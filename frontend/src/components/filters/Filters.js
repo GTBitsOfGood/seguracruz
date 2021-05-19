@@ -5,7 +5,7 @@ import {Range} from 'rc-slider';
 import {filters} from '../../model/filters.js';
 import {map} from 'lodash';
 import 'rc-slider/assets/index.css';
-import './Filters.css';
+import './Filters.scss';
 
 function Filters(props) {
 
