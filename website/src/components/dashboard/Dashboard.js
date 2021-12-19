@@ -21,7 +21,7 @@ const INITIAL_FILTERS = {
 export default function Dashboard() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [showLoginError, setShowLoginError] = useState(false);
-  const [id, setId] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [reports, setReports] = useState({"type": "FeatureCollection", "features": []});
   const [filteredReports, setFilteredReports] = useState({"type": "FeatureCollection", "features": []});
@@ -44,14 +44,14 @@ export default function Dashboard() {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({id: id, password: password}),
+      body: JSON.stringify({username: username, password: password}),
     })
     .then(response => response.json())
     .then(data => {
       if (data.success === 1) {
         setShowLoginError(false);
         setLoggedIn(true);
-        setId('');
+        setUsername('');
         setPassword('');
       } else {
         setShowLoginError(true);
@@ -75,8 +75,8 @@ export default function Dashboard() {
 
   // Update id and password fields while typing
   function handleFormChange(event) {
-    if (event.target.name === 'id') {
-      setId(event.target.value);
+    if (event.target.name === 'username') {
+      setUsername(event.target.value);
     }
 
     if (event.target.name === 'password') {
@@ -334,9 +334,9 @@ export default function Dashboard() {
               <h3>Dashboard Login</h3>
               <Form className='login-form'>
                 <Form.Input
-                  name='id'
+                  name='username'
                   control='input'
-                  placeholder='ID'
+                  placeholder='Username'
                   onChange={handleFormChange}
                 />
                 <Form.Input

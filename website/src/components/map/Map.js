@@ -72,7 +72,7 @@ function Map(props) {
           <Layer {...unclusteredPointLayer} />
         </Source>
       }
-      <div style={{position: 'absolute', right: 5, top: 5}}>
+      <div style={{position: 'absolute', right: 35, top: 5}}>
         <NavigationControl />
       </div>
     </ReactMapGL>

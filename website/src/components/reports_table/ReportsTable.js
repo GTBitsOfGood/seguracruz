@@ -4,9 +4,10 @@ import {map, values} from 'lodash';
 import {headers, csvHeaders} from '../../model/constants';
 import {CSVLink} from 'react-csv';
 import './ReportsTable.scss';
+import UsersManager from '../users_manager/UsersManager';
 
 function ReportsTable(props) {
-
+  const [showUsersManager, setShowUsersManager] = useState(false);
   const [csvData, setCsvData] = useState([]);
   const csvLink = useRef(null);
   const jsonLink = useRef(null);
@@ -17,6 +18,10 @@ function ReportsTable(props) {
 
   function downloadGeoJSON() {
     jsonLink.current.click();
+  }
+
+  function toggleUsersManager(show) {
+    setShowUsersManager(show);
   }
 
   useEffect(() => {
@@ -77,6 +82,9 @@ function ReportsTable(props) {
                         GeoJSON
                     </a>
                   </Dropdown.Item>
+                  <Dropdown.Item onClick={() => setShowUsersManager(true)}>
+                    Manage Users
+                  </Dropdown.Item>
                   <Dropdown.Item onClick={props.logout}>
                     Cerrar sesión
                   </Dropdown.Item>
@@ -118,6 +126,7 @@ function ReportsTable(props) {
             </Message>
         }
       </div>
+      <UsersManager showUsersManager={showUsersManager} toggleUsersManager={toggleUsersManager}/>
     </div>
   )
 }

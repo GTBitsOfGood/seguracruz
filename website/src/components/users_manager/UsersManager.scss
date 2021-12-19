@@ -1,0 +1,21 @@
+
+.users-manager-user {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px;
+}
+
+.users-manager-add-user {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px;
+}
+
+.users-manager-add-user-fields {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}

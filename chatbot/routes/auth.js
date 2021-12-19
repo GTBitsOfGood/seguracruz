@@ -5,23 +5,91 @@ const queries = require('../res/query');
 const utils = require('../res/utils');
 const jwt = require('jsonwebtoken');
 const router = express.Router();
+const winston = require('../res/winston');
+
+// Get Users
+router.get('/users', utils.authenticateToken, (req, res) => {
+  queries.selectAllUsers()
+    .then(rows => {
+      res.status(200).json({success: 1, data: rows.map(item => item.username)});
+    })
+    .catch(err => {
+      winston.error(`${err.status || 500} - ${err.message} - ${req.originalUrl} - ${req.method} - ${req.ip}`);
+      res.status(500).json([{"error": err}]);
+      throw err;
+    });
+});
+
+
+// Add User
+router.post('/user', utils.authenticateToken, (req, res) => {
+  let username = typeof req.body.username !== "undefined" ? req.body.username : "";
+  let password = typeof req.body.password !== "undefined" ? req.body.password : "";
+  let hashPassword = crypto.createHmac('sha256', process.env.SECRET).update(password).digest('hex');
+  if (username.length > 0 && password.length > 0) {
+    queries.selectUser(username)
+      .then(rows => {
+        if (rows.length > 0) {
+          res.status(400).json({success: 0, message: "username already exists"})
+        } else {
+          return queries.insertUser(username, hashPassword)
+            .then(() => {
+              res.status(200).json({success: 1, message: "user created"})
+            })
+            .catch(err => {
+              winston.error(`${err.status || 500} - ${err.message} - ${req.originalUrl} - ${req.method} - ${req.ip}`);
+              res.status(500).json({success: 0, message: `user creation failed with error: ${err}`})
+              throw err;
+            });
+        }
+      });
+  } else {
+    res.status(400).json({success: 0, message: "username or password missing"})
+  }
+});
+
+// Delete User
+router.delete('/user', utils.authenticateToken, (req, res) => {
+  let username = typeof req.body.username !== "undefined" ? req.body.username : "";
+  if (username.length > 0) {
+    queries.selectUser(username)
+      .then(rows => {
+        if (rows.length > 0) {
+          return queries.deleteUser(username)
+            .then(() => {
+                res.status(200).json({success: 1, message: "user deleted"})
+            })
+            .catch(err => {
+              winston.error(`${err.status || 500} - ${err.message} - ${req.originalUrl} - ${req.method} - ${req.ip}`);
+              res.status(500).json({success: 0, message: `user deletion failed with error: ${err}`})
+              throw err;
+            });
+        } else {
+          res.status(400).json({success: 0, message: "username does not exist"})
+        }
+      })
+      
+  } else {
+    res.status(400).json({success: 0, message: "username or password missing"})
+  }
+});
 
 // Login user
 router.post('/login', (req, res) => {
-  let id = typeof req.body.id !== "undefined" ? req.body.id : "";
+  let username = typeof req.body.username !== "undefined" ? req.body.username : "";
   let password = typeof req.body.password !== "undefined" ? req.body.password : "";
   let hashPassword = crypto.createHmac('sha256', process.env.SECRET).update(password).digest('hex');
-  if (id.length > 0 && password.length > 0) {
-    queries.selectUser(id)
+  if (username.length > 0 && password.length > 0) {
+    queries.selectUser(username)
       .then(rows => {
         if (rows.length > 0) {
           if (rows[0].password === hashPassword) {
-            let token = utils.generateAccessToken(id);
+            let token = utils.generateAccessToken(username);
             res.cookie('token', token, {
               maxAge: 60 * 60 * 1000 * 12,
-              httpOnly: true,
-              secure: true,
-              sameSite: true
+              httpOnly: false,
+              secure: false,
+              sameSite: false
             })
             res.status(200).json({success: 1, message: "login successful"})
           } else {
@@ -32,7 +100,7 @@ router.post('/login', (req, res) => {
         }
       });
   } else {
-    res.status(400).json({success: 0, message: "username or password missing."})
+    res.status(400).json({success: 0, message: "username or password missing"})
   }
 });
 

@@ -11,7 +11,7 @@ module.exports = {
       next(); 
     });
   },
-  generateAccessToken: (id) => {
-    return jwt.sign({id: id}, process.env.TOKEN_SECRET, { expiresIn: '12h' });
+  generateAccessToken: (username) => {
+    return jwt.sign({username: username}, process.env.TOKEN_SECRET, { expiresIn: '12h' });
   }
 }
