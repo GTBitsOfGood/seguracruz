@@ -1,9 +1,9 @@
 {
-  "name": "boliviabot",
+  "name": "seguracruz",
   "version": "1.0.0",
   "main": "index.js",
-  "repository": "https://github.gatech.edu/mkoohang6/boliviabot.git",
-  "author": "Michael Koohang <michael.s.k1001@gmail.com>",
+  "repository": "https://github.com/michaelkoohang/SeguraCruz.git",
+  "author": "Michael Koohang <michael.koohang@gmail.com>",
   "license": "MIT",
   "dependencies": {
     "gh-pages": "^3.1.0",
