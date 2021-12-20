@@ -1,68 +1,80 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+# SeguraCruz
 
-In the project directory, you can run:
+## About
 
-### `yarn start`
+### Background
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+SeguraCruz is a WhatsApp chatbot designed to help citizens in Bolivia report roadway accidents and injuries. Roadway accidents are a major cause of injury and death in Bolivia, and SeguraCruz was built in an effort to gather crowdsourced data on the accidents that are happening.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+### Tech Stack
 
-### `yarn test`
+SeguraCruz is built using the following technologies:
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+#### Frontend
 
-### `yarn build`
+1. HTML/SASS
+2. JavaScript
+3. React
+4. Mapbox
+5. Semantic UI
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+#### Backend
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+1. Node
+2. Express
+3. JavaScript
+4. MariaDB
+5. Twilio
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Install
 
-### `yarn eject`
+### Mapbox
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Mapbox is used to display the data gathered from the chatbot on a map in the admin dashboard. In `Map.js`, there is a constant for a Mapbox API key. This will need to be replaced by making an account on [Mapbox.com](https://mapbox.com) and copying your account's API key into the `Map.js` file.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Database
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+SeguraCruz is built using MariaDB. For Mac users, you can install MariaDB through Homebrew: `brew install mariadb`. You can then start it by running `brew services start mariadb`. Please refer to online tutorials for how to set up your own database instance on your local computer and in production.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+The `seguracruz.sql` file contains the database schema for the app in the root folder of the project. Run that file on your database instance to generate the database for the app. Make sure to create a dedicated user for the  database that has proper access privileges. Remember the database name, user, and password so you can set up the chatbot properly later.
 
-## Learn More
+### Website
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+1. Change the `proxy` field in `package.json` to the port the chatbot will be running on. Make sure to change this again if the port is different in production. Keep `localhost` if the chatbot is running on the same server.
+2. Run `yarn install` in the `website` directory
+3. Run `yarn start` to start the frontend
+4. To build the app for production, run `yarn build`. This will automatically move the build to the chatbot folder, making the entire chatbot folder ready for deployment to a server.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Chatbot
 
-### Code Splitting
+#### App Setup
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+1. Create a `.env` file in the `chatbot` directory with the following fields:
 
-### Analyzing the Bundle Size
+```
+NODE_ENV=development
+PORT=0000
+DB_HOST=localhost
+DB_DATABASE=database
+DB_USER=user
+DB_PASSWORD=password
+SECRET=secret
+TOKEN_SECRET=secret
+```
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+Environment variables will need to be set in production for the backend to work properly. The `.env` file is for development only. Please fill in your database credentials and generate random strings for both the `SECRET` and `TOKEN_SECRET` fields to maximize security.
 
-### Making a Progressive Web App
+2. Run `yarn install` in the `chatbot` directory
+3. Run `yarn start` and the app will start listening on the PORT specified in the `.env` file
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+#### Twilio Setup
 
-### Advanced Configuration
+The only thing needed for Twilio is to point the phone number to the chatbot backend. You do this by navigating to the Twilio console and signing in using appropriate credentials. Navigate to the Whats App Senders tab on the left and edit the sender for SeguraCruz. Then, update the webhook url with the appropriate url in the following format: `https://example.com/sms`. Also make sure `POST` is the HTTP method being used for the webook.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+The chatbot should now forward any messages it receives in WhatsApp to the backend app running on your server. You can refer to the following guides for more information: 
 
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+1. [Overview of WhatsApp Business API](https://www.twilio.com/docs/whatsapp/api#monitor-the-status-of-your-whatsapp-outbound-message)
+2. [Connect your Twilio Number to your WhatsApp Business Profile](https://www.twilio.com/docs/whatsapp/tutorial/connect-number-business-profile)
+3. [Twilio WhatsApp API Quick Start for Node](https://www.twilio.com/docs/whatsapp/quickstart/node)
+4. [Twilio Console](https://console.twilio.com/)

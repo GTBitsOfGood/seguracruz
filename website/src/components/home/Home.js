@@ -30,7 +30,7 @@ export default function Home() {
             <p className='text-example'>"Hello, SeguraCruz..."</p>
           </div>
           <div className='phone-info'>
-            <p className='phone-number'>+591 60210510</p>
+            <p className='phone-number'>+1 7633734872</p>
             <p className='phone-number-text'>Text this number on WhatsApp to help report roadway accidents and injuries in the city of Santa Cruz!</p>
           </div>
           <a href={require('../../res/chatbot-training.pdf')} download>
