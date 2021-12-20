@@ -2,7 +2,6 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import Home from './home/Home';
 import Dashboard from './dashboard/Dashboard';
-import Footer from './footer/Footer';
 import './App.scss';
 
 function App() {
@@ -13,10 +12,6 @@ function App() {
         <Route exact path='/' component={Home}/>
         <Route exact path='/dash' component={Dashboard}/>
       </Switch>
-      <div>
-        <hr></hr>
-        <Footer/>
-      </div>
     </div>
   );
 }
