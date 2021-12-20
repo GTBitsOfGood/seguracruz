@@ -4,7 +4,7 @@ import {clusterLayer, clusterCountLayer, unclusteredPointLayer} from './Layers';
 
 function Map(props) {
 
-  const accessToken = "pk.eyJ1IjoibWljaGFlbGtvb2hhbmciLCJhIjoiY2tra29wMzMxMTZ2cTJucWtzbHgxd2oxYSJ9.JXrEwzOxZkKEDeyby75yLQ"
+  const accessToken = "replace_with_mapbox_key"
   const sourceRef = useRef(null);
   const [viewport, setViewport] = useState({
     latitude: -17.7850,
