@@ -326,9 +326,13 @@ export default function Dashboard() {
         : <div> 
             <div className='home-nav'>
               <h2 className="header-title"><a href='/'>SeguraCruz</a></h2>
-              <a href='#/dash'>
-                <button className='dash-button'>Dashboard <Icon name='sign-in'/></button>
-              </a>
+              <div>
+                <a className="nav-link" href="/">Home</a>
+                <a className="nav-link" href="https://movilabbolivia.com">Movilab</a>
+                <a href='#/dash'>
+                  <button className='dash-button'>Dashboard <Icon name='sign-in'/></button>
+                </a>
+              </div>
             </div>
             <div className='login'>
               <h3>Dashboard Login</h3>
