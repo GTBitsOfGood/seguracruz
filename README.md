@@ -1,7 +1,10 @@
-
 # SeguraCruz
 
 ## About
+
+### Deployment
+
+This app is deployed to Azure, usually via VS Code. Install the Azure VSC extension, login, and deploy the `chatbot` directory specifically.
 
 ### Background
 
@@ -37,7 +40,7 @@ Mapbox is used to display the data gathered from the chatbot on a map in the adm
 
 SeguraCruz is built using MariaDB. For Mac users, you can install MariaDB through Homebrew: `brew install mariadb`. You can then start it by running `brew services start mariadb`. Please refer to online tutorials for how to set up your own database instance on your local computer and in production.
 
-The `seguracruz.sql` file contains the database schema for the app in the root folder of the project. Run that file on your database instance to generate the database for the app. Make sure to create a dedicated user for the  database that has proper access privileges. Remember the database name, user, and password so you can set up the chatbot properly later.
+The `seguracruz.sql` file contains the database schema for the app in the root folder of the project. Run that file on your database instance to generate the database for the app. Make sure to create a dedicated user for the database that has proper access privileges. Remember the database name, user, and password so you can set up the chatbot properly later.
 
 ### Website
 
@@ -72,7 +75,7 @@ Environment variables will need to be set in production for the backend to work 
 
 The only thing needed for Twilio is to point the phone number to the chatbot backend. You do this by navigating to the Twilio console and signing in using appropriate credentials. Navigate to the Whats App Senders tab on the left and edit the sender for SeguraCruz. Then, update the webhook url with the appropriate url in the following format: `https://example.com/sms`. Also make sure `POST` is the HTTP method being used for the webook.
 
-The chatbot should now forward any messages it receives in WhatsApp to the backend app running on your server. You can refer to the following guides for more information: 
+The chatbot should now forward any messages it receives in WhatsApp to the backend app running on your server. You can refer to the following guides for more information:
 
 1. [Overview of WhatsApp Business API](https://www.twilio.com/docs/whatsapp/api#monitor-the-status-of-your-whatsapp-outbound-message)
 2. [Connect your Twilio Number to your WhatsApp Business Profile](https://www.twilio.com/docs/whatsapp/tutorial/connect-number-business-profile)
