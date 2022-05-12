@@ -26,13 +26,13 @@ router.post('/sms', (req, res) => {
         if (dateTimeRegex.exec(input) !== null) {
           let matches = dateTimeRegex.exec(input);
           let day = parseInt(matches[1]);
-          let month = parseInt(matches[2]);
-          let hour = parseInt(matches[3]);
+          let month = parseInt(matches[2]) - 1; // Counting starts at 0
+          let hour = parseInt(matches[3]) + 4; // Users are in GMT-4, so add 4
           let minute = parseInt(matches[4]);
-          let year = new Date().getFullYear();
-          let newDate = new Date(year, month - 1, day, hour, minute);
-          if (newDate.getMonth() === month - 1 && newDate.getTime() <= new Date().getTime()) {
-            query.insertRecord(newDate)
+          let date = new Date(Date.UTC(new Date().getFullYear(), month, day, hour, minute));
+
+          if (isPastDate(date)) {
+            query.insertRecord(date)
               .then(result => {
                 req.session.insertId = result.insertId;
                 req.session.counter = smsCount + 1;
@@ -46,11 +46,8 @@ router.post('/sms', (req, res) => {
                 throw err;
               });
           } else {
-            if (newDate.getTime() > new Date().getTime()) {
-              message = errors.invalid_date_future.text
-            } else {
-              message = errors.invalid_date.text;
-            }
+            message = errors.invalid_date_future.text
+
             twiml.message(message);
             res.writeHead(200, {'Content-Type': 'text/xml'});
             res.end(twiml.toString());
@@ -181,6 +178,10 @@ function constructAnswer(string, choices) {
     }
   }
   return answer
+}
+
+function isPastDate(date) {
+  return new Date() - date > 0
 }
 
 module.exports = router
